@@ -1,3 +1,14 @@
+<!--
+    Homework: Recreate page with css only. https://newpaltz-examples.onrender.com/static/css-menu/menu.html
+    Problem 1: Menus need to save the state of being clicked purely in CSS
+        Solution 1: Use the :checked pseudo class with a hidden checkbox ❌ Doesn't uncheck when clicking outside of menu
+        Solution 2: :target with hidden textbox ❌ 
+        Solution 3: :focus with hidden textbox ✅
+        Solution 4: Test :focus with checkbox and it also works. ✅
+        Menu toggle Solution: Checkbox is better because textbox might trigger keyboard on mobile. 
+        
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +18,11 @@
     <style>
         :root{
             --bright-green-color: rgb(8, 166, 8);
+            --highlight-green-color: rgb(25, 221, 25);
             --desaturated-green-color: #c7d8be;
             --bright-yellow-color: #e0dc4e;
+            --menu-indent: 0.5em;
+            --menu-width: 6em;
         }
         html,body {
             margin: 0;
@@ -21,7 +35,31 @@
         #header{
             background-color: var(--bright-green-color);
             height: 2em;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            transition: height 0.5s ease-in-out;
         }
+
+        /* Mobile Media Query So it doesn't go off screen */
+        @media (max-width: 600px) {
+            #header{
+                height: 7em;
+                justify-content: center;
+                transition: height 0.5s ease-in-out;
+            }
+            :root{
+                --menu-width:4em;   
+            }
+        }
+
+        /* Helper CSS */
+        .bold{
+            font-weight: bold;
+        }
+
+        /* Info boxes css */
+
         .info-box{
             background-color: #f0f0f0;
             padding: 1em;
@@ -31,97 +69,109 @@
         .info-box h3{
             margin-top: 0;
         }
-        .bold{
-            font-weight: bold;
-        }
+        
         #instructions{
             border-left: 0.3em solid var(--bright-green-color);
         }
         #extra-credit{
             border-left: 0.3em solid var(--bright-yellow-color);
         }
-        #header{
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-        }
-        #header .menu-item{
-            padding-right: 2em;
-            padding-left: 0.5em;
-            line-height: 2; /* centers the text vertically */
-            background-color: blue;
-        }
+
+        /* Menu CSS */
         
-        #file .menu-text:hover + #File-Menu{
-            display: flex;
+        #header .menu-item .menu-text{
+            width: var(--menu-width);
+            font-size: 1.1em;
+        }
+        #header .menu-item .menu-text, #header .menu-item .menu{
+            line-height: 2; /* centers the text vertically */
+            padding-left: var(--menu-indent);
         }
 
+        .menu-item {
+            position: relative; /* Allows .menu to use .menu-item's width */
+        }
         .menu {
             position: absolute;
             display: none;
             flex-direction: column;
+            font-size: 0.9em;
+            width: calc(100% - var(--menu-indent));
         }
+        
         #header label{
             user-select: none;
         }
         
-        /* First Attempt: Checkbox doesn't uncheck when clicking page. 
-        #header .menu-item input[type="checkbox"]:checked + #edit-menu{
-            display:flex;
-        }
         #header label input[type="checkbox"]{
-            display:none;
-        }
-        */
-        #header label input[type="text"]{
             position: absolute;
-            top: -100px;
+            top: -1000px; /* Send it off screen */
 
         }
-        #header .menu-item input[type="text"]:focus + .menu{
-            display:flex;
-            background-color: red;
+        /* Toggle Menu On Click: Only edit menu as this is a faithful recreation. */
+        #header #edit input[type="checkbox"]:focus ~ .menu{
+            display: flex;
+            background-color: var(--highlight-green-color);
+        }
+        #header #edit input[type="checkbox"]:focus + div {
+            background-color: var(--highlight-green-color)
         }
         
-        #header .menu-item:hover + div .menu{
+        #header .menu-item:hover > .menu{
             display:flex !important;
+            background-color: var(--highlight-green-color);
+        }
+        #header .menu-item:hover {
+            background-color: var(--highlight-green-color);
         }
         .menu-item input:focus{
             opacity: 0.4;
         }
+
         
     </style>
 </head>
 <body>
     <div id="header">
         <label id="file" class="menu-item bold">
-            <div>File</div>
-            <input type="text">
+            <input type="checkbox">
+            <div class="menu-text">File</div>
+            
             <div id="file-menu" class="menu">
-                <a class="menu-item">New</a>
-                <a class="menu-item">Open</a>
-                <a class="menu-item">Save</a>
-                <a class="menu-item">Print</a>
-                <a class="menu-item">Close</a>
+                <a href="" class="menu-item">New</a>
+                <a href="" class="menu-item">Open</a>
+                <a href="" class="menu-item">Save</a>
+                <a href="" class="menu-item">Print</a>
+                <a href="" class="menu-item">Close</a>
             </div>
         </label>
         <label id="edit" class="menu-item">
-            <div>Edit</div>
-            <input type="text">
+            <input type="checkbox">
+            <div class="menu-text">Edit</div>
             <div id="edit-menu" class="menu">
-                <a class="menu-item">Edit</a>
-                <a class="menu-item">Undo</a>
-                <a class="menu-item">Redo</a>
-                <a class="menu-item">Cut</a>
-                <a class="menu-item">Copy</a>
-                <a class="menu-item">Paste</a>
-                <a class="menu-item">Delete</a>
-                <a class="menu-item">Select All</a>
+                <a href="" class="menu-item">Undo</a>
+                <a href="" class="menu-item">Redo</a>
+                <a href="" class="menu-item">Cut</a>
+                <a href="" class="menu-item">Copy</a>
+                <a href="" class="menu-item">Paste</a>
+                <a href="" class="menu-item">Delete</a>
+                <a href="" class="menu-item">Select All</a>
             </div>
         </label>
         <label id="view" class="menu-item bold">
-            <input type="text">
-            <div>View</div>
+            <input type="checkbox">
+            <div class="menu-text">View</div>
+            <div id="view-menu" class="menu">
+                <a href="" class="menu-item">Zoom In</a>
+                <a href="" class="menu-item">Zoom Out</a>
+                <a href="" class="menu-item">Actual Size</a>
+                <a href="" class="menu-item">Fit Page</a>
+                <a href="" class="menu-item">Fit Width</a>
+                <a href="" class="menu-item">Fit Height</a>
+                <a href="" class="menu-item">Rotate Left</a>
+                <a href="" class="menu-item">Rotate Right</a>
+                <a href="" class="menu-item">Full Screen</a>
+            </div>
         </label>
     </div>
     <div id="instructions" class="info-box">
