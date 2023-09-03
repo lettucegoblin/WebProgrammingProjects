@@ -58,7 +58,7 @@
 
         .menu {
             position: absolute;
-            display:none;
+            display: none;
             flex-direction: column;
         }
         #header label{
@@ -73,13 +73,20 @@
             display:none;
         }
         */
-        #header .menu-item input[type="checkbox"]:checked + #edit-menu{
-            display:flex;
+        #header label input[type="text"]{
+            position: absolute;
+            top: -100px;
+
         }
+        #header .menu-item input[type="text"]:focus + .menu{
+            display:flex;
+            background-color: red;
+        }
+        
         #header .menu-item:hover + div .menu{
             display:flex !important;
         }
-        #view input:focus{
+        .menu-item input:focus{
             opacity: 0.4;
         }
         
@@ -113,7 +120,7 @@
             </div>
         </label>
         <label id="view" class="menu-item bold">
-            <input>
+            <input type="text">
             <div>View</div>
         </label>
     </div>
