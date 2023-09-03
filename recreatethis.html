@@ -1,4 +1,5 @@
 <!--
+    Michael Manzi
     Homework: Recreate page with css only. https://newpaltz-examples.onrender.com/static/css-menu/menu.html
     Problem 1: Menus need to save the state of being clicked purely in CSS
         Solution 1: Use the :checked pseudo class with a hidden checkbox ❌ Doesn't uncheck when clicking outside of menu
@@ -32,33 +33,18 @@
         body{
             background-color: var(--desaturated-green-color);
         }
-        #header{
-            background-color: var(--bright-green-color);
-            height: 2em;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            transition: height 0.5s ease-in-out;
-        }
+        
 
-        /* Mobile Media Query So it doesn't go off screen */
-        @media (max-width: 600px) {
-            #header{
-                height: 7em;
-                justify-content: center;
-                transition: height 0.5s ease-in-out;
-            }
-            :root{
-                --menu-width:4em;   
-            }
-        }
-
-        /* Helper CSS */
+        /* ===========
+            Helper CSS 
+            ========== */
         .bold{
             font-weight: bold;
         }
 
-        /* Info boxes css */
+        /* ============ 
+            Info Boxes 
+            =========== */
 
         .info-box{
             background-color: #f0f0f0;
@@ -77,20 +63,48 @@
             border-left: 0.3em solid var(--bright-yellow-color);
         }
 
-        /* Menu CSS */
-        
-        #header .menu-item .menu-text{
+        /* ================
+            Header CSS
+            ================ */
+        #header{
+            background-color: var(--bright-green-color);
+            height: 2em;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            transition: height 0.5s ease-in-out;
+        }
+
+        #header label{
+            user-select: none;
+        }
+        /* =================
+            Nav + Menu CSS
+            ================= */
+
+        /* HACK: Allows checkbox to manage state, be hidden, and not affect DOM flow
+        */
+        .nav-item input[type="checkbox"]{
+            position: absolute;
+            top: -1000px; /* Send it off screen */
+        }
+
+        /* nav text */
+        .nav-item .nav-text{ 
             width: var(--menu-width);
             font-size: 1.1em;
         }
-        #header .menu-item .menu-text, #header .menu-item .menu{
+
+        /* nav text + menu text */
+        .nav-item .nav-text, .nav-item .menu{ 
             line-height: 2; /* centers the text vertically */
             padding-left: var(--menu-indent);
         }
 
-        .menu-item {
+        .nav-item {
             position: relative; /* Allows .menu to use .menu-item's width */
         }
+        
         .menu {
             position: absolute;
             display: none;
@@ -98,44 +112,52 @@
             font-size: 0.9em;
             width: calc(100% - var(--menu-indent));
         }
-        
-        #header label{
-            user-select: none;
-        }
-        
-        #header label input[type="checkbox"]{
-            position: absolute;
-            top: -1000px; /* Send it off screen */
 
-        }
-        /* Toggle Menu On Click: Only edit menu as this is a faithful recreation. */
-        #header #edit input[type="checkbox"]:focus ~ .menu{
+        /* ===============
+            Toggle Edit Menu 
+            ============== */
+
+        #header #edit input[type="checkbox"]:focus ~ .menu {
             display: flex;
             background-color: var(--highlight-green-color);
         }
         #header #edit input[type="checkbox"]:focus + div {
             background-color: var(--highlight-green-color)
         }
+
+        /* ===============
+             Hover All Menus 
+             =============*/
         
-        #header .menu-item:hover > .menu{
+        #header .nav-item:hover > .menu {
             display:flex !important;
             background-color: var(--highlight-green-color);
         }
-        #header .menu-item:hover {
+        #header .nav-item:hover {
             background-color: var(--highlight-green-color);
-        }
-        .menu-item input:focus{
-            opacity: 0.4;
-        }
-
+        }       
         
+
+        /* ===============
+            Media Queries for Mobile
+            =============== */
+        @media (max-width: 600px) {
+            #header{ /* Prevent menu from going off screen on mobile */
+                height: 7em;
+                justify-content: center;
+                transition: height 0.5s ease-in-out;
+            }
+            :root{
+                --menu-width:4em;   
+            }
+        }
     </style>
 </head>
 <body>
     <div id="header">
-        <label id="file" class="menu-item bold">
+        <label id="file" class="nav-item">
             <input type="checkbox">
-            <div class="menu-text">File</div>
+            <div class="nav-text bold">File</div>
             
             <div id="file-menu" class="menu">
                 <a href="" class="menu-item">New</a>
@@ -145,9 +167,9 @@
                 <a href="" class="menu-item">Close</a>
             </div>
         </label>
-        <label id="edit" class="menu-item">
+        <label id="edit" class="nav-item">
             <input type="checkbox">
-            <div class="menu-text">Edit</div>
+            <div class="nav-text">Edit</div>
             <div id="edit-menu" class="menu">
                 <a href="" class="menu-item">Undo</a>
                 <a href="" class="menu-item">Redo</a>
@@ -158,9 +180,9 @@
                 <a href="" class="menu-item">Select All</a>
             </div>
         </label>
-        <label id="view" class="menu-item bold">
+        <label id="view" class="nav-item">
             <input type="checkbox">
-            <div class="menu-text">View</div>
+            <div class="nav-text bold">View</div>
             <div id="view-menu" class="menu">
                 <a href="" class="menu-item">Zoom In</a>
                 <a href="" class="menu-item">Zoom Out</a>
