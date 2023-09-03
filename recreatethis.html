@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Example</title>
+    <style>
+        :root{
+            --bright-green-color: rgb(8, 166, 8);
+            --desaturated-green-color: #c7d8be;
+            --bright-yellow-color: #e0dc4e;
+        }
+        html,body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        body{
+            background-color: var(--desaturated-green-color);
+        }
+        #header{
+            background-color: var(--bright-green-color);
+            height: 2em;
+        }
+        .info-box{
+            background-color: #f0f0f0;
+            padding: 1em;
+            margin: 2em 1em;
+            min-height: 4em;
+        }
+        .info-box h3{
+            margin-top: 0;
+        }
+        .bold{
+            font-weight: bold;
+        }
+        #instructions{
+            border-left: 0.3em solid var(--bright-green-color);
+        }
+        #extra-credit{
+            border-left: 0.3em solid var(--bright-yellow-color);
+        }
+        #header{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        #header .menu-item{
+            padding-right: 2em;
+            padding-left: 0.5em;
+            line-height: 2; /* centers the text vertically */
+            background-color: blue;
+        }
+        
+        #file .menu-text:hover + #File-Menu{
+            display: flex;
+        }
+
+        .menu {
+            position: absolute;
+            display:none;
+            flex-direction: column;
+        }
+        #header label{
+            user-select: none;
+        }
+        
+        /* First Attempt: Checkbox doesn't uncheck when clicking page. 
+        #header .menu-item input[type="checkbox"]:checked + #edit-menu{
+            display:flex;
+        }
+        #header label input[type="checkbox"]{
+            display:none;
+        }
+        */
+        #header .menu-item input[type="checkbox"]:checked + #edit-menu{
+            display:flex;
+        }
+        #header .menu-item:hover + div .menu{
+            display:flex !important;
+        }
+        #view input:focus{
+            opacity: 0.4;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="header">
+        <label id="file" class="menu-item bold">
+            <div>File</div>
+            <input type="text">
+            <div id="file-menu" class="menu">
+                <a class="menu-item">New</a>
+                <a class="menu-item">Open</a>
+                <a class="menu-item">Save</a>
+                <a class="menu-item">Print</a>
+                <a class="menu-item">Close</a>
+            </div>
+        </label>
+        <label id="edit" class="menu-item">
+            <div>Edit</div>
+            <input type="text">
+            <div id="edit-menu" class="menu">
+                <a class="menu-item">Edit</a>
+                <a class="menu-item">Undo</a>
+                <a class="menu-item">Redo</a>
+                <a class="menu-item">Cut</a>
+                <a class="menu-item">Copy</a>
+                <a class="menu-item">Paste</a>
+                <a class="menu-item">Delete</a>
+                <a class="menu-item">Select All</a>
+            </div>
+        </label>
+        <label id="view" class="menu-item bold">
+            <input>
+            <div>View</div>
+        </label>
+    </div>
+    <div id="instructions" class="info-box">
+        <h3>Instructions</h3>
+        Recreate this page using <span class="bold">only CSS</span>. Do yourself a favor and 1) Do not view the source. Figure it out yourself. 2) Do not search for the solution. Learn CSS until you know enough to do this.
+    </div>
+    <div id="extra-credit" class="info-box">
+        <h3>Extra Credit</h3>
+        Notice how the Edit menu (besides for not being bold) reacts to clicks. If you click the edit menu, it remains open until you click somewhere else. (This you might need to search for)
+    </div>
+</body>
+</html>
