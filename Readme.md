@@ -7,3 +7,9 @@ This repository is designed to hold my final project. It will contain all of my 
 * [Assignments Folder](Assignments)
 * [Final Project Folder](FinalProject)
 
+## Exercise Project
+# Setup
+1. Clone the repository
+2. navigate to exerciseApp/frontend
+3. run ```npm install```
+4. run ```npm run serve```
