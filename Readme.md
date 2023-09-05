@@ -8,6 +8,9 @@ This repository is designed to hold my final project. It will contain all of my 
 * [Final Project Folder](FinalProject)
 
 ## Exercise Project
+# Necessary vscode plugins
+1. Volar
+2. eslints
 # Setup
 1. Clone the repository
 2. navigate to exerciseApp/frontend

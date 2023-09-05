@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="@/assets/logo.png" />
     <ExerciseHome msg="Welcome to Exercise Home" />
   </div>
 </template>
