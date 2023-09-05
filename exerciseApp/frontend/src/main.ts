@@ -4,4 +4,7 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
+// Import Bulma CSS
+import "bulma/css/bulma.css";
+
 createApp(App).use(store).use(router).mount("#app");
