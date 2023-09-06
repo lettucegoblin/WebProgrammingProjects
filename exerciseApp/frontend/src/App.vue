@@ -34,11 +34,13 @@
     </div>
   </nav>
   <LoginModel />
+  <ScrollingBackground />
   <router-view />
 </template>
 
 <script setup lang="ts">
 import LoginModel from "@/components/LoginModel.vue";
+import ScrollingBackground from "./components/ScrollingBackground.vue";
 function openLoginModel() {
   const loginModel = document.getElementById("login-model");
   if (loginModel) {

@@ -2,7 +2,57 @@
   <div class="section">
     <section class="hero is-halfheight container is-max-desktop">
       <div class="notification is-primary">{{ msg }}</div>
-      <button @click="increment">count is: {{ count }}</button>
+      <button class="button is-primary" @click="increment">
+        count is: {{ count }}
+      </button>
+    </section>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Exercise App</h1>
+          <h2 class="subtitle">A Vue.js project</h2>
+        </div>
+      </div>
+    </section>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Exercise App</h1>
+          <h2 class="subtitle">A Vue.js project</h2>
+        </div>
+      </div>
+    </section>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Exercise App</h1>
+          <h2 class="subtitle">A Vue.js project</h2>
+        </div>
+      </div>
+    </section>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Exercise App</h1>
+          <h2 class="subtitle">A Vue.js project</h2>
+        </div>
+      </div>
+    </section>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Exercise App</h1>
+          <h2 class="subtitle">A Vue.js project</h2>
+        </div>
+      </div>
+    </section>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Exercise App</h1>
+          <h2 class="subtitle">A Vue.js project</h2>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -41,18 +91,6 @@ export default defineComponent({
 -->
 
 <style lang="scss">
-.section {
-  background-image: url(@/assets/exercises.png);
-  background-size: cover;
-  background-repeat-y: no-repeat;
-  -webkit-mask-image: linear-gradient(
-    180deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(0, 0, 0, 1) 77%,
-    rgba(0, 0, 0, 0) 95%
-  );
-  background-position-y: top;
-}
 .hero {
   backdrop-filter: blur(5px);
   background-color: #00d1b270;
