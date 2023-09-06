@@ -1,0 +1,11 @@
+// Import the Bulma Sass files
+$dark: #29222c;
+$light: #d6e3ed;
+$scheme-main: $dark;
+$scheme-main-bis: $dark;
+$scheme-main-ter: $dark;
+
+$scheme-invert: $light;
+$scheme-invert-bis: $light;
+$scheme-invert-ter: $light;
+@import "bulma/bulma.sass";

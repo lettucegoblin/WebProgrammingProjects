@@ -4,8 +4,10 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
-// Import Bulma CSS
-import "bulma/css/bulma.css";
+// Import Bulma Sass
+//import "bulma/bulma.sass";
+import "./styles/main-lightmode.scss";
+//import "./styles/main-darkmode.scss"; // not working
 
 router.beforeEach((to, from, next) => {
   // Perform some action before the route is entered

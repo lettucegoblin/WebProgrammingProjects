@@ -36,4 +36,12 @@
   <router-view />
 </template>
 
-<style lang="scss"></style>
+<script setup lang="ts">
+
+</script>
+
+<style lang="scss">
+.navbar {
+  background-color: #bdfbf1 !important;
+}
+</style>
