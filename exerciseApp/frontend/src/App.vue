@@ -27,17 +27,24 @@
             <a class="button is-primary">
               <strong>Sign up</strong>
             </a>
-            <a class="button is-light">Log in</a>
+            <a class="button is-light" @click="openLoginModel">Log in</a>
           </div>
         </div>
       </div>
     </div>
   </nav>
+  <LoginModel />
   <router-view />
 </template>
 
 <script setup lang="ts">
-
+import LoginModel from "@/components/LoginModel.vue";
+function openLoginModel() {
+  const loginModel = document.getElementById("login-model");
+  if (loginModel) {
+    loginModel.classList.add("is-active");
+  }
+}
 </script>
 
 <style lang="scss">
