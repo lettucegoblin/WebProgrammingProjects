@@ -7,7 +7,12 @@
     <!-- Bulma CSS CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <style>
+      .navbar .flipped-arrow::after {
+        transform: rotate(135deg);
+        margin-top: 0em;
+      }
+    </style>
     <title>First Bulma Example</title>
 </head>
 <body>
@@ -323,23 +328,56 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Get all "navbar-burger" elements
-    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-    // Add a click event on each of them
-    $navbarBurgers.forEach( el => {
+  // Add a click event on each of them
+  $navbarBurgers.forEach( el => {
     el.addEventListener('click', () => {
 
-        // Get the target from the "data-target" attribute
-        const target = el.dataset.target;
-        const $target = document.getElementById(target);
+      // Get the target from the "data-target" attribute
+      const target = el.dataset.target;
+      const $target = document.getElementById(target);
 
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        el.classList.toggle('is-active');
-        $target.classList.toggle('is-active');
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      el.classList.toggle('is-active');
+      $target.classList.toggle('is-active');
 
     });
+  });
+
+  // Make all collapse content buttons clickable
+  const $collapses = Array.prototype.slice.call(document.querySelectorAll('.card-header-icon'), 0);
+  $collapses.forEach( el => {
+    el.addEventListener('click', () => {
+        const $card = el.parentNode.parentNode;
+        $card.classList.toggle('is-collapsed');
+        const $icon = $card.querySelector('.card-header-icon .fas');
+        if ($icon.classList.contains('fa-angle-down')) {
+            $icon.classList.remove('fa-angle-down');
+            $icon.classList.add('fa-angle-up');
+        } else {
+            $icon.classList.remove('fa-angle-up');
+            $icon.classList.add('fa-angle-down');
+        }
+        $card.querySelector('.card-content').classList.toggle('is-hidden');
+        $card.querySelector('.card-footer').classList.toggle('is-hidden');
     });
+  });
+  //.flipped-arrow
+  // find all navbar-items that have a dropdown
+  const $dropdowns = Array.prototype.slice.call(document.querySelectorAll('.navbar-item.has-dropdown'), 0);
+  $dropdowns.forEach( el => {
+    el.addEventListener('click', () => {
+        const $icon = el.querySelector('.navbar-link'); 
+        //I could have flipped-arrow toggle and is-hidden toggle but I don't trust it to stay in sync.
+        if($icon.classList.toggle('flipped-arrow')){
+          el.querySelector('.navbar-dropdown').classList.add('is-hidden');
+        } else {
+          el.querySelector('.navbar-dropdown').classList.remove('is-hidden');
+        }
+    });
+  });
 
 });
 </script>
