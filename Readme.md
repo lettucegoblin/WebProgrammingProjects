@@ -1,6 +1,6 @@
 # Final Project Repository
 
-This repository is designed to hold my final project. It will contain all of my assignments. The repository will be organized in a way that makes it easy to navigate and understand.
+This repository is designed to hold my final project. It will contain all of my assignments. 
 
 ## Repository Navigation
 
@@ -10,9 +10,12 @@ This repository is designed to hold my final project. It will contain all of my 
 ## Exercise Project
 # Necessary vscode plugins
 1. Volar
-2. eslints
-# Setup
-1. Clone the repository
-2. navigate to exerciseApp/frontend
-3. run ```npm install```
-4. run ```npm run serve```
+2. eslint
+# Setup frontend
+1. navigate to exerciseApp/frontend
+2. run ```npm install```
+3. run ```npm run serve```
+# Setup backend
+1. navigate to exerciseApp/backend
+2. run ```npm install```
+3. run ```node server.js```
