@@ -1,0 +1,18 @@
+{
+  "name": "webprogrammingprojects",
+  "version": "1.0.0",
+  "description": "This repository is designed to hold my final project. It will contain all of my assignments.",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js",
+    "dev": "nodemon --watch ./server server/index.js",
+    "silly": "echo \"This is a silly script\""
+  },
+  "dependencies": {
+    "express":"^4.18.2"
+  }, "devDependencies": {
+    "nodemon":"^3.0.1"
+  }
+}
