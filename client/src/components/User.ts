@@ -90,10 +90,11 @@ interface PersonalData {
 export default class User {
   personalData: PersonalData;
   isAdmin: boolean;
+  id: number;
 
   constructor(userObject: any) {
-    this.id = userObject.id;
+    this.id = parseInt(userObject.id);
     this.personalData = userObject.personalData;
-    this.isAdmin = userObject.isAdmin;
+    this.isAdmin = userObject.isAdmin === "true" ? true : false;
   }
 }

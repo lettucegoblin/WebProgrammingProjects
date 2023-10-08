@@ -1,30 +1,30 @@
 <script setup lang="ts">
-
-
-
 import { ref } from 'vue'
+
+import User from '@/components/User'
 const navbar = ref({ burgerIsActive: false, loginDropdownIsActive: false });
 const props = defineProps({
-  dataGen: {
-    type: Object,
+  users: {
+    type: Array<User>,
     required: true,
   },
+  currentUser: {
+    type: User,
+    required: true,
+  }
 });
-//console.log(props.dataGen.value.users[0].personalData.online_handle)
-const activeColor = ref('red')
+
 const randomHslColor = () => {
   const hue = Math.floor(Math.random() * 360);
   return `hsl(${hue}, 70%, 50%)`;
 }
 
-const logIn = (user: {
-personalData: Object; type: ObjectConstructor; 
-}) => {
-  //console.log("Logging in as: ", user.personalData.firstName, user.personalData.lastName);
+const emit = defineEmits(['logIn']);
+
+const logIn = (user: User) => {
   navbar.value.loginDropdownIsActive = false;
   navbar.value.burgerIsActive = false;
-  //currentUser.value = user;
-  //console.log(currentUser.value.personalData.online_handle)
+  emit('logIn', user);
 }
 
 </script>
@@ -82,8 +82,11 @@ personalData: Object; type: ObjectConstructor;
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button is-primary">
+            <a v-if="currentUser.id == -1" class="button is-primary">
               <strong>Sign up</strong>
+            </a>
+            <a v-else class="button is-primary">
+              <strong>{{ currentUser.personalData.firstName }}</strong>
             </a>
 
             <div :class="{ 'is-active': navbar.loginDropdownIsActive }" class="dropdown is-right">
@@ -97,7 +100,7 @@ personalData: Object; type: ObjectConstructor;
                 </button>
               </div>
               <div class="dropdown-menu" id="login-dropdown-menu" role="menu">
-                <div v-for="user in dataGen.users" @click="logIn(user)" class="dropdown-content">
+                <div v-for="user in users" @click="logIn(user)" class="dropdown-content">
                   <a href="#" class="dropdown-item card">
                     <div class="card-content">
                       <div class="media">
@@ -105,7 +108,7 @@ personalData: Object; type: ObjectConstructor;
                           <figure class="image is-48x48" :style="{ backgroundColor: randomHslColor() }">
                             <!-- if is admin set class .is-admin -->
                             <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-                            <i v-if="user.isAdmin == 'true'" class="is-admin fa-solid fa-lock-open"></i>
+                            <i v-if="user.isAdmin" class="is-admin fa-solid fa-lock-open"></i>
                           </figure>
 
                         </div>

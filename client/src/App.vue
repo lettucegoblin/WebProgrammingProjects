@@ -17,31 +17,35 @@ import dataGenerated from '@/assets/dataGenerated.json';
 console.log(dataGenerated);
 
 import User from '@/components/User'
-const testUser = new User(dataGenerated.users[0]);
-console.log("IsAdmin", testUser.isAdmin, "Handle", testUser.personalData.online_handle)
+
 
 // make dataGen available to all components
-const dataGen = ref(dataGenerated);
+const users = ref(dataGenerated.users.map(user => new User(user)));
 
 // print out all admins
-const admins = dataGen.value.users.filter(user => user.isAdmin == "true");
-console.log("Admins: ", admins);
+//const admins = users.value.filter(user => user.isAdmin);
+//console.log("Admins: ", admins);
+const guestUser = new User({
+  id: -1,
+  personalData: {
+    first_name: "Guest",
+    last_name: "",
+  }, is_admin: false
+});
 
-const users = [
-  {
-    id: 1,
-    personalData: { firstName: '', lastName: '', emails: [], handle: '' },
-    activities: [{ date: "", workout: { type: 'run/bike/walk/cardio/strength', distance: 0, duration: 0, avgPace: 0, calories: 0, location: "" } }],
-    isAdmin: false
-  }
-]
+const currentUser = ref<User>({ ...guestUser });
 
+const logIn = (user: User) => {
+  console.log("Log in as: ", user.personalData.online_handle)
+  currentUser.value = user;
+  console.log("currentUser", currentUser.value.personalData.online_handle)
+}
 
 </script>
 
 <template>
   <header>
-    <NavBar :dataGen="dataGen" />
+    <NavBar @logIn="logIn" :users="users" :currentUser="currentUser" />
   </header>
 
   <RouterView class="container" /> <!-- Where the pages are inserted -->
