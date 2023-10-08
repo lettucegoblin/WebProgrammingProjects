@@ -5,18 +5,66 @@ import { RouterLink, RouterView } from 'vue-router'
 const navbar = ref({ burgerIsActive: false, loginDropdownIsActive: false });
 // user data First Name	Last Name	Emails	Handle	Is Admin
 
-// Some ai generated names
-// {feminine, masculine} = {firstNames.feminine, firstNames.masculine}
-import firstNames from '@/assets/firstNames.json';
-// raw array of last names
-import lastNames from '@/assets/lastNames.json';
-// raw array of pretend emails (not real)(fake)(ai)
-import emails from '@/assets/pretendEmails.json';
-console.log(firstNames, lastNames, emails)
+// AI generated personalDetails
+import dataGen from '@/assets/dataGenerated.json';
+/*  Structure of dataGen:
+{
+  users: [
+    {
+      "personalData": {
+        "firstName": "string",
+        "lastName": "string",
+        "genderIdentity": "string",
+        "age": "string",
+        "height": "string",
+        "weight_class": "string",
+        "weight": "string",
+        "online_handle": "string",
+        "aboutMe": "string",
+        "oneAdjectiveToDescribeMe": "string",
+        "emails": [
+          "string",
+          "string"
+        ]
+        "activities": [
+          {
+            "type": "[WORKOUT_VALUE]",
+            "wasDifficult": "[BOOLEAN_VALUE]",
+            "avgHeartRate": "[INT_VALUE]",
+            "distanceInMeters": "{randomNumberAsString(1, 16000)}",
+            "reps": "{randomNumberAsString(0, 40)}",
+            "sets": "{randomNumberAsString(1, 20)}",
+            "weightInPounds": "{randomNumberAsString(1, 250)}",
+            "durationInMinutes": "{randomNumberAsString(1, 60*3)}",
+            "location": "[STRING_VALUE]",
+            "notes": "[STRING_VALUE]",
+            "numOfComments": "{randomNumberAsString(0, 4)}",
+            "numOfLikes": "[INT_VALUE]",
+            "comments": [
+              {
+                "author_id": "{author["id"]}",
+                "author": "{author["personalData"]["online_handle"]}",
+                "comment": "[STRING_VALUE]",
+                "isLookingForReplyFromAuthor": "[BOOLEAN_VALUE]",
+                "numOfLikes": "[INT_VALUE]"
+              }, ...
+            ]
+          }, ...
+        ]
+      },
+      "isAdmin": "boolean"
+    }, ...
+  ]
+}
+
+*/
+
+console.log(dataGen);
 const users = [
-  { id: 1, 
-    personalData: { firstName: '', lastName: '', emails: [], handle: ''},
-    activities: [{ date: "", workout: {type:'run/bike/walk/cardio/strength', distance: 0, duration: 0, avgPace: 0, calories: 0, location: "" }}],
+  {
+    id: 1,
+    personalData: { firstName: '', lastName: '', emails: [], handle: '' },
+    activities: [{ date: "", workout: { type: 'run/bike/walk/cardio/strength', distance: 0, duration: 0, avgPace: 0, calories: 0, location: "" } }],
     isAdmin: false
   }
 ]
