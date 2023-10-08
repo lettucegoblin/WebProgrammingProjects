@@ -61,7 +61,14 @@ import dataGenerated from '@/assets/dataGenerated.json';
 
 */
 
+// conform the array of any type users in dataGen to the User class
+//dataGenerated.users = dataGenerated.users.map(user => new User(user));
+
 console.log(dataGenerated);
+
+import User from '@/components/User.ts'
+const testUser = new User(true);
+console.log("IsAdmin", testUser.isAdmin)
 
 // make dataGen available to all components
 const dataGen = ref(dataGenerated);
@@ -91,3 +98,4 @@ const users = [
 </template>
 
 <style scoped></style>
+@/User.vue

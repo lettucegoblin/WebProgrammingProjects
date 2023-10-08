@@ -1,4 +1,7 @@
 <script setup lang="ts">
+
+
+
 import { ref } from 'vue'
 const navbar = ref({ burgerIsActive: false, loginDropdownIsActive: false });
 const props = defineProps({
@@ -14,13 +17,14 @@ const randomHslColor = () => {
   return `hsl(${hue}, 70%, 50%)`;
 }
 
-const currentUser = ref({});
-const logIn = (user) => {
-  console.log("Logging in as: ", user.personalData.firstName, user.personalData.lastName);
+const logIn = (user: {
+personalData: Object; type: ObjectConstructor; 
+}) => {
+  //console.log("Logging in as: ", user.personalData.firstName, user.personalData.lastName);
   navbar.value.loginDropdownIsActive = false;
   navbar.value.burgerIsActive = false;
-  currentUser.value = user;
-  console.log(currentUser.value.personalData.online_handle)
+  //currentUser.value = user;
+  //console.log(currentUser.value.personalData.online_handle)
 }
 
 </script>
