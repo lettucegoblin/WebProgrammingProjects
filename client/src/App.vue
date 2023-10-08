@@ -9,66 +9,16 @@ import NavBar from './components/NavBar.vue'
 
 // AI generated personalDetails
 import dataGenerated from '@/assets/dataGenerated.json';
-/*  Structure of dataGen:
-{
-  users: [
-    {
-      "personalData": {
-        "firstName": "string",
-        "lastName": "string",
-        "genderIdentity": "string",
-        "age": "string",
-        "height": "string",
-        "weight_class": "string",
-        "weight": "string",
-        "online_handle": "string",
-        "aboutMe": "string",
-        "oneAdjectiveToDescribeMe": "string",
-        "emails": [
-          "string",
-          "string"
-        ]
-        "activities": [
-          {
-            "type": "[WORKOUT_VALUE]",
-            "wasDifficult": "[BOOLEAN_VALUE]",
-            "avgHeartRate": "[INT_VALUE]",
-            "distanceInMeters": "{randomNumberAsString(1, 16000)}",
-            "reps": "{randomNumberAsString(0, 40)}",
-            "sets": "{randomNumberAsString(1, 20)}",
-            "weightInPounds": "{randomNumberAsString(1, 250)}",
-            "durationInMinutes": "{randomNumberAsString(1, 60*3)}",
-            "location": "[STRING_VALUE]",
-            "notes": "[STRING_VALUE]",
-            "numOfComments": "{randomNumberAsString(0, 4)}",
-            "numOfLikes": "[INT_VALUE]",
-            "comments": [
-              {
-                "author_id": "{author["id"]}",
-                "author": "{author["personalData"]["online_handle"]}",
-                "comment": "[STRING_VALUE]",
-                "isLookingForReplyFromAuthor": "[BOOLEAN_VALUE]",
-                "numOfLikes": "[INT_VALUE]"
-              }, ...
-            ]
-          }, ...
-        ]
-      },
-      "isAdmin": "boolean"
-    }, ...
-  ]
-}
 
-*/
 
 // conform the array of any type users in dataGen to the User class
 //dataGenerated.users = dataGenerated.users.map(user => new User(user));
 
 console.log(dataGenerated);
 
-import User from '@/components/User.ts'
-const testUser = new User(true);
-console.log("IsAdmin", testUser.isAdmin)
+import User from '@/components/User'
+const testUser = new User(dataGenerated.users[0]);
+console.log("IsAdmin", testUser.isAdmin, "Handle", testUser.personalData.online_handle)
 
 // make dataGen available to all components
 const dataGen = ref(dataGenerated);
