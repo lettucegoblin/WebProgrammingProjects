@@ -8,8 +8,8 @@ const props = defineProps({
     type: Array<User>,
     required: true,
   },
-  currentUser: {
-    type: User,
+  userState: {
+    type: Object,
     required: true,
   }
 });
@@ -19,12 +19,21 @@ const randomHslColor = () => {
   return `hsl(${hue}, 70%, 50%)`;
 }
 
-const emit = defineEmits(['logIn']);
+const emit = defineEmits(['logIn', 'logOut']);
+
+const closeNavbar = () => {
+  navbar.value.burgerIsActive = false;
+  navbar.value.loginDropdownIsActive = false;
+}
 
 const logIn = (user: User) => {
-  navbar.value.loginDropdownIsActive = false;
-  navbar.value.burgerIsActive = false;
+  closeNavbar();
   emit('logIn', user);
+}
+
+const logOut = () => {
+  closeNavbar();
+  emit('logOut');
 }
 
 </script>
@@ -34,7 +43,7 @@ const logIn = (user: User) => {
     <div class="navbar-brand">
       <RouterLink class="navbar-item" to="/"><img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="112"
           height="28"></RouterLink>
-      <RouterLink class="navbar-item" to="/about">
+      <RouterLink class="navbar-item" to="/myactivity">
         <span class="icon">
           <i class="fas fa-running"></i>
         </span>
@@ -65,7 +74,7 @@ const logIn = (user: User) => {
 
         <RouterLink class="navbar-item" to="/about">People Search</RouterLink>
         <!-- Admin Nav -->
-        <div class="navbar-item has-dropdown is-hoverable">
+        <div v-if="props.userState.currentUser.isAdmin" class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             Admin
           </a>
@@ -82,21 +91,24 @@ const logIn = (user: User) => {
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <a v-if="currentUser.id == -1" class="button is-primary">
+            <a v-if="userState.currentUser.id == -1" class="button is-primary">
               <strong>Sign up</strong>
             </a>
             <a v-else class="button is-primary">
-              <strong>{{ currentUser.personalData.firstName }}</strong>
+              <strong>{{ userState.currentUser.personalData.firstName + " " + userState.currentUser.personalData.lastName }}</strong>
             </a>
 
             <div :class="{ 'is-active': navbar.loginDropdownIsActive }" class="dropdown is-right">
               <div class="dropdown-trigger">
-                <button @click="navbar.loginDropdownIsActive = !navbar.loginDropdownIsActive" class="button"
+                <button v-if="userState.currentUser.id == -1" @click="navbar.loginDropdownIsActive = !navbar.loginDropdownIsActive" class="button"
                   aria-haspopup="true" aria-controls="login-dropdown-menu">
                   <span>Log in</span>
                   <span class="icon is-small">
                     <i class="fas fa-angle-down" aria-hidden="true"></i>
                   </span>
+                </button>
+                <button v-else class="button" @click="logOut">
+                  <span>Log Out</span>
                 </button>
               </div>
               <div class="dropdown-menu" id="login-dropdown-menu" role="menu">
