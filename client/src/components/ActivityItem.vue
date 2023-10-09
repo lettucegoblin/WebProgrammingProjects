@@ -10,7 +10,7 @@
         <p>
           <strong>{{ props.user.getName() }}</strong> <small>@{{ props.user.personalData.online_handle }}</small> <small class="tooltip">{{ formatTime }}<span class="tooltiptext">{{ timeString }}</span></small>
           <br>
-          Description
+          {{ props.activity.notes}}
         </p>
       </div>
       <nav class="level is-mobile">
