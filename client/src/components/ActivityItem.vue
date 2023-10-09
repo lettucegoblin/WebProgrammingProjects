@@ -8,9 +8,10 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong>{{ props.user.getName() }}</strong> <small>@{{ props.user.personalData.online_handle }}</small> <small class="tooltip">{{ formatTime }}<span class="tooltiptext">{{ timeString }}</span></small>
+          <strong>{{ props.user.getName() }}</strong> <small>@{{ props.user.personalData.online_handle }}</small> <small
+            class="tooltip">{{ formatTime }}<span class="tooltiptext">{{ timeString }}</span></small>
           <br>
-          {{ props.activity.notes}}
+          {{ props.activity.notes }}
         </p>
       </div>
       <nav class="level is-mobile">
@@ -56,15 +57,15 @@ const props = defineProps({
 // numDaysAgo to 
 const formatTime = computed(() => {
   const numDaysAgo = props.activity.numDaysAgo;
-  if(numDaysAgo == 0) return "Today";
-  if(numDaysAgo == 1) return "Yesterday";
-  if(numDaysAgo < 7) return numDaysAgo + " days ago";
-  if(numDaysAgo < 14) return "Last week";
-  if(numDaysAgo < 21) return "2 weeks ago";
-  if(numDaysAgo < 28) return "3 weeks ago";
-  if(numDaysAgo < 60) return "Last month";
-  if(numDaysAgo < 180) return "about 6 months ago";
-  if(numDaysAgo < 365) return "about a year ago";
+  if (numDaysAgo == 0) return "Today";
+  if (numDaysAgo == 1) return "Yesterday";
+  if (numDaysAgo < 7) return numDaysAgo + " days ago";
+  if (numDaysAgo < 14) return "Last week";
+  if (numDaysAgo < 21) return "2 weeks ago";
+  if (numDaysAgo < 28) return "3 weeks ago";
+  if (numDaysAgo < 60) return "Last month";
+  if (numDaysAgo < 180) return "about 6 months ago";
+  if (numDaysAgo < 365) return "about a year ago";
   return "a long time ago";
 });
 
@@ -92,7 +93,7 @@ const timeString = computed(() => {
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
-  
+
   /* Position the tooltip */
   position: absolute;
   z-index: 1;

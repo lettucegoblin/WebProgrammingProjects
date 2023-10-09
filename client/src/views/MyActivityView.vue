@@ -12,6 +12,7 @@
             <i class="fas fa-running"></i>
           </span>
         </div>
+        <button class="button is-info is-fullwidth">Add Workout</button>
         <!-- ActivityList can be used to show other user's Activities. We send ours here. -->
         <!-- TODO: userState lets you know if you're friends. -->
         <ActivityList :user="userState.currentUser" :userState="userState" />
