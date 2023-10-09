@@ -37,8 +37,8 @@ const userState = ref({
   currentUser: guestUser
 });
 
-userState.value.currentUser = users.value[2];
-console.log("Temporarily Logging in by default as: ", users.value[2].personalData.online_handle)
+userState.value.currentUser = users.value[3];
+console.log("Temporarily Logging in by default as: ", userState.value.currentUser.personalData.online_handle)
 
 
 const logIn = (user: User) => {

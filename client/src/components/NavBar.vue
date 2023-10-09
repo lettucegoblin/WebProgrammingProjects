@@ -80,7 +80,7 @@ const logOut = () => {
               Admin
             </a>
             <div class="navbar-dropdown">
-              <RouterLink class="navbar-item" to="/about">
+              <RouterLink class="navbar-item" to="/adminUsers">
                 Users
               </RouterLink>
             </div>
@@ -100,7 +100,7 @@ const logOut = () => {
                   userState.currentUser.personalData.lastName }}</strong>
               </a>
 
-              <div :class="{ 'is-active': navbar.loginDropdownIsActive }" class="dropdown is-right">
+              <div id="login-dropdown" :class="{ 'is-active': navbar.loginDropdownIsActive }" class="dropdown">
                 <div class="dropdown-trigger">
                   <button v-if="userState.currentUser.id == -1"
                     @click="navbar.loginDropdownIsActive = !navbar.loginDropdownIsActive" class="button"
@@ -163,6 +163,22 @@ const logOut = () => {
 </template>
 
 <style scoped>
+@media (min-width: 1024px) {
+  .dropdown-menu{
+    left: auto;
+    right: 0;
+  }
+}
+.dropdown-content .media-content{
+  overflow-x: visible;
+}
+.dropdown-content{
+  box-shadow: unset;
+}
+.dropdown-content .card {
+  box-shadow: 0px 4px 1em -0.125em rgba(10, 10, 10, 0.1), 0 -1px 20px 1px rgba(10, 10, 10, 0.02);
+}
+
 
 .dropdown-menu {
   max-height: 70vh;
