@@ -1,9 +1,10 @@
-interface ActivityComment {
+export interface ActivityComment {
   author_id: number;
   author: string;
   comment: string;
   isLookingForReplyFromAuthor: boolean;
   numOfLikes: number;
+  likedBy: number[];
 }
 export interface TimeCheckpoint {
   displayString: string;
@@ -40,6 +41,7 @@ export interface Activity {
   numOfLikes: number;
   numDaysAgo: number;
   comments: ActivityComment[];
+  likedBy: number[];
 }
 
 interface PersonalData {
@@ -64,6 +66,51 @@ export class User {
   activitiesAndTheirMET: { [key: string]: number } = { "run": 7.0, "bike": 7.5, "walk": 5.3, "cardio": 3.8, "strength": 6.0 };
 
   weightClassTypes: string[] = ["underweight", "normal", "overweight", "obese", "clinically_obese"];
+
+  static like(item: Activity | ActivityComment, userID: number): void {
+    // awful but this is how interface instanceof has to work https://stackoverflow.com/a/31748606
+    if ("comments" in item) { // something only activities have
+      this.likeActivity(item, userID);
+    } else if ("comment" in item) { // something only activity comments have
+      this.likeActivityComment(item, userID);
+    }
+  }
+
+  static hasLiked(item: Activity | ActivityComment, userID: number): boolean {
+    if (item.likedBy == undefined) return false;
+    if ("comments" in item) { // something only activities have
+      return item.likedBy.includes(userID);
+    } else if ("comment" in item) { // something only activity comments have
+      return item.likedBy.includes(userID);
+    }
+    return false;
+  }
+
+  private static likeActivity(activity: Activity, userID: number): void {
+    let amountToAdd = 1;
+    if (activity.likedBy == undefined) activity.likedBy = new Array<number>();
+    if (activity.likedBy.includes(userID)) {
+      amountToAdd = -1;
+      activity.likedBy.splice(activity.likedBy.indexOf(userID), 1);
+    } else {
+      activity.likedBy.push(userID);
+    }
+
+    activity.numOfLikes += amountToAdd;
+  }
+
+  private static likeActivityComment(comment: ActivityComment, userID: number): void {
+    let amountToAdd = 1;
+    if (comment.likedBy == undefined) comment.likedBy = new Array<number>();
+    if (comment.likedBy.includes(userID)) {
+      amountToAdd = -1;
+      comment.likedBy.splice(comment.likedBy.indexOf(userID), 1);
+    } else {
+      comment.likedBy.push(userID);
+    }
+
+    comment.numOfLikes += amountToAdd;
+  }
 
   // calculate calories burned based on activity type and duration
   // MET info: https://www.acefitness.org/resources/pros/expert-articles/6434/5-things-to-know-about-metabolic-equivalents/

@@ -23,20 +23,22 @@
             <span class="icon is-small"><i class="fas fa-retweet"></i></span>
           </a>
           <a class="level-item">
-            <span class="icon is-small"><i class="fas fa-heart"></i></span>
+            <span @click="like" :class="{'liked':User.hasLiked(props.activity, props.userState.currentUser.id)}" class="icon is-small"><i class="likes fas fa-heart">&nbsp{{ props.activity.numOfLikes }}</i></span>
           </a>
         </div>
       </nav>
+      <CommentItem v-for="comment in props.activity.comments" :comment="comment" :users="props.users" :userState="userState"/>
     </div>
     <div class="media-right">
       <button class="delete"></button>
     </div>
+    
   </article>
 </template>
 
 <script setup lang="ts">
 import { User, type Activity } from '@/components/User';
-
+import CommentItem from './CommentItem.vue';
 //PropType for interfaces: https://stackoverflow.com/a/75050585
 import { computed, type PropType } from 'vue';
 const props = defineProps({
@@ -49,10 +51,18 @@ const props = defineProps({
     required: true,
   },
   userState: {
-    type: Object,
+    type: Object as PropType<{ currentUser: User }>,
     required: true,
-  }
+  },
+  users: {
+    type: Array<User>,
+    required: true,
+  },
 });
+
+const like = () => {
+  User.like(props.activity, props.userState.currentUser.id)
+}
 
 // numDaysAgo to 
 const formatTime = computed(() => {
@@ -79,6 +89,10 @@ const timeString = computed(() => {
 </script>
 
 <style scoped>
+
+.likes {
+  padding-left: 1.5em;
+}
 .tooltip {
   position: relative;
   display: inline-block;

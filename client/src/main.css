@@ -1,0 +1,7 @@
+.media-content .level{
+  user-select: none;
+  -webkit-user-select: none;
+}
+.media-content .liked {
+  color: #da2a2a;
+}

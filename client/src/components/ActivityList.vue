@@ -1,11 +1,11 @@
 <template>
-  <ActivityItem v-for="activity in sortedActivities" :user="props.user" :activity="activity" :userState="userState"/>
+  <ActivityItem v-for="activity in sortedActivities" :user="props.user" :activity="activity" :userState="userState" :users="props.users"/>
 </template>
 
 <script setup lang="ts">
 import {User, type Activity} from '@/components/User';
 import ActivityItem from './ActivityItem.vue';
-import { computed } from 'vue';
+import { computed, type PropType } from 'vue';
 
 
 const props = defineProps({
@@ -14,9 +14,13 @@ const props = defineProps({
     required: true,
   },
   userState: {
-    type: Object,
+    type: Object as PropType<{ currentUser: User }>,
     required: true,
-  }
+  },
+  users: {
+    type: Array<User>,
+    required: true,
+  },
 });
 
 const sortedActivities = computed(() => {

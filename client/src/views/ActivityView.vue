@@ -8,7 +8,7 @@
             <i class="fas fa-running"></i>
           </span>
           <div>
-            <h1 class="title is-3" >{{ activityTitle }}</h1>
+            <h1 class="title is-3">{{ activityTitle }}</h1>
             <h3 class="subtitle" v-if="userFromParam != props.userState.currentUser">Activity Log</h3>
           </div>
           <span class="icon">
@@ -18,7 +18,7 @@
         <button class="button is-info is-fullwidth">Add Workout(TODO)</button>
         <!-- ActivityList can be used to show other user's Activities. We send ours here. -->
         <!-- TODO: userState lets you know if you're friends. -->
-        <ActivityList :user="userFromParam" :userState="userState" />
+        <ActivityList :user="userFromParam" :userState="userState" :users="props.users" />
       </div>
       <div class="column"></div>
     </div>
@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import ActivityList from '@/components/ActivityList.vue';
 import { User } from '@/components/User';
-import { computed } from 'vue';
+import { computed, type PropType } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute()
 console.log(route.params.id)
@@ -38,13 +38,13 @@ const props = defineProps({
     required: true,
   },
   userState: {
-    type: Object,
+    type: Object as PropType<{ currentUser: User }>,
     required: true,
-  }
+  },
 });
 
-const activityTitle = computed(() =>{
-  if(userFromParam.value != props.userState.currentUser){
+const activityTitle = computed(() => {
+  if (userFromParam.value != props.userState.currentUser) {
     return userFromParam.value.getName()
   } else {
     return "My Activity"
@@ -59,7 +59,7 @@ const userFromParam = computed<User>(() => {
       return props.userState.currentUser
     }
     return props.users[id];
-  } else { 
+  } else {
     return props.userState.currentUser
   }
 });

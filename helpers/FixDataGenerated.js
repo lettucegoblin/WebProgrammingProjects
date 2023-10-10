@@ -57,7 +57,9 @@ function fixDataTypes(){
       activity.durationInMinutes=parseInt(activity.durationInMinutes)
       activity.numOfComments=parseInt(activity.numOfComments)
       activity.numOfLikes=parseInt(activity.numOfLikes);
-      for(comment in activity.comments){
+      if(activity.numOfComments > 0)
+      for(i = 0; i < activity.comments.length; i++){
+        comment = activity.comments[i]
         comment.author_id=parseInt(comment.author_id)
         comment.isLookingForReplyFromAuthor = changeToBool(comment.isLookingForReplyFromAuthor)
         comment.numOfLikes=parseInt(comment.numOfLikes)
