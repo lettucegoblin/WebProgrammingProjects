@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import { User } from '@/components/User'
 const navbar = ref({ burgerIsActive: false, loginDropdownIsActive: false });
@@ -36,6 +36,10 @@ const logOut = () => {
   emit('logOut');
 }
 
+const isLoggedIn = computed(() => {
+  return props.userState.currentUser.id != -1;
+});
+
 </script>
 
 <template>
@@ -44,7 +48,7 @@ const logOut = () => {
       <div class="navbar-brand">
         <RouterLink class="navbar-item" to="/"><img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="24"
             height="28"></RouterLink>
-        <RouterLink class="navbar-item" to="/myactivity">
+        <RouterLink v-if="isLoggedIn" class="navbar-item" to="/activity">
           <span class="icon">
             <i class="fas fa-running"></i>
           </span>
@@ -54,9 +58,9 @@ const logOut = () => {
           <span class="icon">
             <i class="fas fa-chart-line"></i>
           </span>
-          <span>Statistics</span>
+          <span>Global Statistics</span>
         </RouterLink>
-        <RouterLink class="navbar-item" to="/about">
+        <RouterLink v-if="isLoggedIn" class="navbar-item" to="/activity/33">
           <span class="icon">
             <i class="fas fa-user-friends"></i>
           </span>

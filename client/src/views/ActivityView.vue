@@ -7,7 +7,10 @@
           <span class="icon">
             <i class="fas fa-running"></i>
           </span>
-          <span>My Activity</span>
+          <div>
+            <h1 class="title is-3" >{{ activityTitle }}</h1>
+            <h3 class="subtitle" v-if="userFromParam != props.userState.currentUser">Activity Log</h3>
+          </div>
           <span class="icon">
             <i class="fas fa-running"></i>
           </span>
@@ -15,7 +18,7 @@
         <button class="button is-info is-fullwidth">Add Workout(TODO)</button>
         <!-- ActivityList can be used to show other user's Activities. We send ours here. -->
         <!-- TODO: userState lets you know if you're friends. -->
-        <ActivityList :user="userState.currentUser" :userState="userState" />
+        <ActivityList :user="userFromParam" :userState="userState" />
       </div>
       <div class="column"></div>
     </div>
@@ -25,6 +28,10 @@
 <script setup lang="ts">
 import ActivityList from '@/components/ActivityList.vue';
 import { User } from '@/components/User';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+const route = useRoute()
+console.log(route.params.id)
 const props = defineProps({
   users: {
     type: Array<User>,
@@ -35,7 +42,29 @@ const props = defineProps({
     required: true,
   }
 });
-console.log("myactivityview", props.userState)
+
+const activityTitle = computed(() =>{
+  if(userFromParam.value != props.userState.currentUser){
+    return userFromParam.value.getName()
+  } else {
+    return "My Activity"
+  }
+})
+
+const userFromParam = computed<User>(() => {
+  console.log("userFromParam", props.userState)
+  if (route.params.id && typeof route.params.id == 'string') {
+    let id = parseInt(route.params.id);
+    if (isNaN(id) || id > props.users.length || id < 0) {
+      return props.userState.currentUser
+    }
+    return props.users[id];
+  } else { 
+    return props.userState.currentUser
+  }
+});
+
+console.log("activityview", props.userState)
 </script>
 
 <style scoped>
@@ -45,13 +74,15 @@ console.log("myactivityview", props.userState)
   margin-left: -1em;
   margin-right: -1em;
   text-align: center;
-  border-radius: 34px;
-  text-shadow: 1px 2px 0px #ffffff;
   background-color: #00d1b2;
   border-style: double;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0.2em 0.3em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+
+.box.title .icon {
+  text-shadow: 1px 1px 1px #ffffff;
 }
 </style>

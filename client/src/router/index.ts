@@ -10,9 +10,14 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/myactivity',
+      path: '/activity',
       name: 'myactivity',
-      component: () => import('../views/MyActivityView.vue')
+      component: () => import('../views/ActivityView.vue')
+    },
+    {
+      path: '/activity/:id',
+      name: 'activity',
+      component: () => import('../views/ActivityView.vue')
     },
     {
       path: '/about',
@@ -26,6 +31,10 @@ const router = createRouter({
       path: '/adminUsers',
       name: 'adminUsers',
       component: () => import('../views/AdminUsersView.vue')
+    },
+    {
+      path: '/:catchAll(.*)',
+      component: () => import('../views/404View.vue')
     }
 
   ]
