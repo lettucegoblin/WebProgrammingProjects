@@ -8,8 +8,11 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong>{{ props.user.getName() }}</strong> <small>@{{ props.user.personalData.online_handle }}</small> <small
-            class="tooltip">{{ formatTime }}<span class="tooltiptext">{{ timeString }}</span></small>
+          <a href="#"><strong>{{ props.user.getName() }}</strong> </a>
+          <small>@{{ props.user.personalData.online_handle }}</small>
+          <small class="tooltip">{{ formatTime }}
+            <span class="tooltiptext">{{ timeString }}</span>
+          </small>
           <br>
           {{ props.activity.notes }}
         </p>
@@ -23,16 +26,18 @@
             <span class="icon is-small"><i class="fas fa-retweet"></i></span>
           </a>
           <a class="level-item">
-            <span @click="like" :class="{'liked':User.hasLiked(props.activity, props.userState.currentUser.id)}" class="icon is-small"><i class="likes fas fa-heart">&nbsp{{ props.activity.numOfLikes }}</i></span>
+            <span @click="like" :class="{ 'liked': User.hasLiked(props.activity, props.userState.currentUser.id) }"
+              class="icon is-small"><i class="likes fas fa-heart">&nbsp{{ props.activity.numOfLikes }}</i></span>
           </a>
         </div>
       </nav>
-      <CommentItem v-for="comment in props.activity.comments" :comment="comment" :users="props.users" :userState="userState"/>
+      <CommentItem v-for="comment in props.activity.comments" :comment="comment" :users="props.users"
+        :userState="userState" />
     </div>
     <div class="media-right">
       <button class="delete"></button>
     </div>
-    
+
   </article>
 </template>
 
@@ -89,10 +94,10 @@ const timeString = computed(() => {
 </script>
 
 <style scoped>
-
 .likes {
   padding-left: 1.5em;
 }
+
 .tooltip {
   position: relative;
   display: inline-block;

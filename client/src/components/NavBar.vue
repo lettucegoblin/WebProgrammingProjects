@@ -60,7 +60,7 @@ const isLoggedIn = computed(() => {
           </span>
           <span>Global Statistics</span>
         </RouterLink>
-        <RouterLink v-if="isLoggedIn" class="navbar-item" to="/activity/33">
+        <RouterLink v-if="isLoggedIn" class="navbar-item" to="/activity/FriendsActivity">
           <span class="icon">
             <i class="fas fa-user-friends"></i>
           </span>

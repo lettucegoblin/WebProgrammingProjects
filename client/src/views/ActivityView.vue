@@ -9,7 +9,12 @@
           </span>
           <div>
             <h1 class="title is-3">{{ activityTitle }}</h1>
-            <h3 class="subtitle" v-if="userFromParam != props.userState.currentUser">Activity Log</h3>
+            <h3 class="subtitle" v-if="isFriendsActivityList">
+              <span class="icon"><i class="fas fa-user-friends"></i></span>
+              {{ props.userState.currentUser.getName() }} Friends
+              <span class="icon"><i class="fas fa-user-friends"></i></span>
+          </h3>
+            <h3 class="subtitle" v-else-if="userFromParam != props.userState.currentUser">Activity Log</h3>
           </div>
           <span class="icon">
             <i class="fas fa-running"></i>
@@ -31,7 +36,7 @@ import { User } from '@/components/User';
 import { computed, type PropType } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute()
-console.log(route.params.id)
+console.log(route.params.id, route.name)
 const props = defineProps({
   users: {
     type: Array<User>,
@@ -43,8 +48,14 @@ const props = defineProps({
   },
 });
 
+const isFriendsActivityList = computed(() => {
+  return route.name == "friendsactivity"
+})
+
 const activityTitle = computed(() => {
-  if (userFromParam.value != props.userState.currentUser) {
+  if(isFriendsActivityList.value) {
+    return "Friends Activity"
+  } else if (userFromParam.value != props.userState.currentUser) {
     return userFromParam.value.getName()
   } else {
     return "My Activity"
