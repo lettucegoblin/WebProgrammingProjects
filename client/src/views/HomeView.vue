@@ -11,7 +11,7 @@ const props = defineProps({
     required: true,
   }
 });
-console.log("homeview", props.userState)
+//console.log("homeview", props.userState)
 </script>
 
 <template>

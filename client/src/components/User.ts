@@ -72,7 +72,7 @@ export class User {
     // for activities
     let friends: number[] = [];
     this.personalData.activities.forEach(activity => {
-      if(activity.comments == undefined) return;
+      if (activity.comments == undefined) return;
       activity.comments.forEach(comment => {
         if (!friends.includes(comment.author_id)) {
           friends.push(comment.author_id);
@@ -84,7 +84,7 @@ export class User {
 
   static like(item: Activity | ActivityComment, userID: number): void {
     // awful but this is how interface instanceof has to work https://stackoverflow.com/a/31748606
-    if ("comments" in item) { // something only activities have
+    if ("notes" in item) { // something only activities have
       this.likeActivity(item, userID);
     } else if ("comment" in item) { // something only activity comments have
       this.likeActivityComment(item, userID);
@@ -93,7 +93,7 @@ export class User {
 
   static hasLiked(item: Activity | ActivityComment, userID: number): boolean {
     if (item.likedBy == undefined) return false;
-    if ("comments" in item) { // something only activities have
+    if ("notes" in item) { // something only activities have
       return item.likedBy.includes(userID);
     } else if ("comment" in item) { // something only activity comments have
       return item.likedBy.includes(userID);
@@ -149,6 +149,21 @@ export class User {
 
   static isDistanceActivity(type: string): boolean {
     return type == "run" || type == "bike" || type == "walk";
+  }
+  static isLooselyDistanceActivity(type: string, notes: string): boolean {
+    const keywords = ["walk", "run", "jog", "hike", "bike", "swim", "ski", "skate", "skateboard", "scooter", "wheelchair"]
+    const notesContainsKeyword = keywords.some((keyword) => {
+      return notes.toLowerCase().includes(keyword);
+    });
+    return User.isDistanceActivity(type) || notesContainsKeyword;
+  }
+  static isLooselyStrengthActivity(type: string, notes: string): boolean {
+    // lol thanks co-pilot
+    const keywords = ["curl", "rep", "lift", "pushup", "push-up", "push up", "pullup", "pull-up", "pull up", "chinup", "chin-up", "chin up", "dip", "dumbbell", "barbell", "bench", "squat", "deadlift", "press", "crunch", "situp", "sit-up", "sit up", "plank", "lunge", "burpee", "jumping jack", "jumping-jack", "jumping-jacks", "jumping jacks", "jumpingjack", "jumpingjack", "jumpingjacks", "jumpingjacks", "jumping jack", "jumping jack", "jumping-jack", "jumping-jacks", "jumping-jack", "jumping-jacks", "jumping jack", "jumping jack", "jumping-jack", "jumping-jacks", "jumping-jack", "jumping-jacks", "jumping jack", "jumping jack", "jumping-jack", "jumping-jacks", "jumping-jack", "jumping-jacks", "jumping jack", "jumping jack", "jumping-jack", "jumping-jacks", "jumping-jack", "jumping-jacks", "jumping jack", "jumping jack", "jumping-jack", "jumping-jacks", "jumping-jack", "jumping-jacks"];
+    const notesContainsKeyword = keywords.some((keyword) => {
+      return notes.toLowerCase().includes(keyword);
+    });
+    return !User.isDistanceActivity(type) || notesContainsKeyword;
   }
 
   // First and Last name as string

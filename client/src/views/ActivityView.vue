@@ -14,13 +14,13 @@
               {{ props.userState.currentUser.getName() }} Friends
               <span class="icon"><i class="fas fa-user-friends"></i></span>
           </h3>
-            <h3 class="subtitle" v-else-if="userFromParam != props.userState.currentUser">Activity Log</h3>
+            <h3 class="subtitle" v-else-if="!isUserParam">Activity Log</h3>
           </div>
           <span class="icon">
             <i class="fas fa-running"></i>
           </span>
         </div>
-        <button class="button is-info is-fullwidth">Add Workout(TODO)</button>
+        <button v-if="!isFriendsActivityList && isUserParam" class="add-workout button is-info is-fullwidth">Add Workout(TODO)</button>
         <!-- ActivityList can be used to show other user's Activities. We send ours here. -->
         <!-- TODO: userState lets you know if you're friends. -->
         <ActivityList :isFriendsActivityList="isFriendsActivityList" :user="userFromParam" :userState="userState" :users="props.users" />
@@ -36,7 +36,7 @@ import { User } from '@/components/User';
 import { computed, type PropType } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute()
-console.log(route.params.id, route.name)
+//console.log(route.params.id, route.name)
 const props = defineProps({
   users: {
     type: Array<User>,
@@ -60,10 +60,14 @@ const activityTitle = computed(() => {
   } else {
     return "My Activity"
   }
+});
+
+const isUserParam = computed(() => {
+  return userFromParam.value == props.userState.currentUser;
 })
 
 const userFromParam = computed<User>(() => {
-  console.log("userFromParam", props.userState)
+  //console.log("userFromParam", props.userState)
   if (route.params.id && typeof route.params.id == 'string') {
     let id = parseInt(route.params.id);
     if (isNaN(id) || id > props.users.length || id < 0) {
@@ -75,10 +79,14 @@ const userFromParam = computed<User>(() => {
   }
 });
 
-console.log("activityview", props.userState)
+//console.log("activityview", props.userState)
 </script>
 
 <style scoped>
+.add-workout {
+  margin-bottom: 1em;
+}
+
 .box.title {
   padding-top: 10px;
   padding-bottom: 10px;

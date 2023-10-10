@@ -17,7 +17,7 @@ const props = defineProps({
     required: true,
   }
 });
-console.log(props.collatedAverage)
+//console.log(props.collatedAverage)
 
 
 const distanceInFeet = computed(() => {

@@ -71,7 +71,7 @@ const congregateActivities = computed(() => {
       avgActivity: newAvgActivity
     });
   }
-  console.log("congregateActivitiesArr", congregateActivitiesArr)
+  //console.log("congregateActivitiesArr", congregateActivitiesArr)
   return congregateActivitiesArr;
 });
 

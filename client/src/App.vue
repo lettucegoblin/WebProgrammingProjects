@@ -14,7 +14,7 @@ import dataGenerated from '@/assets/dataGenerated.json';
 // conform the array of any type users in dataGen to the User class
 //dataGenerated.users = dataGenerated.users.map(user => new User(user));
 
-console.log(dataGenerated);
+//console.log(dataGenerated);
 
 import { User } from '@/components/User'
 
@@ -37,19 +37,19 @@ const userState = ref({
   currentUser: guestUser
 });
 
-userState.value.currentUser = users.value[3];
-console.log("Temporarily Logging in by default as: ", userState.value.currentUser.personalData.online_handle)
+userState.value.currentUser = users.value[23];
+//console.log("Temporarily Logging in by default as: ", userState.value.currentUser.personalData.online_handle)
 
 
 const logIn = (user: User) => {
-  console.log("Log in as: ", user.personalData.online_handle)
+  //console.log("Log in as: ", user.personalData.online_handle)
   userState.value.currentUser = user;
-  console.log("currentUser", userState.value.currentUser.personalData.online_handle)
+  //console.log("currentUser", userState.value.currentUser.personalData.online_handle)
 }
 const logOut = () => {
-  console.log("Log out")
+  //console.log("Log out")
   userState.value.currentUser = guestUser;
-  console.log("currentUser", userState.value.currentUser.personalData.online_handle)
+  //console.log("currentUser", userState.value.currentUser.personalData.online_handle)
 }
 
 </script>

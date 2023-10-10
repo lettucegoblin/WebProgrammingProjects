@@ -8,13 +8,49 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <a :href="previewHrefLocation" @click.prevent="goToProfile(props.user.id)"><strong>{{ props.user.getName() }}</strong> </a>
-          <small>@{{ props.user.personalData.online_handle }}</small>
+          <a :href="previewHrefLocation" @click.prevent="goToProfile(props.user.id)"><strong>{{ props.user.getName()
+          }}</strong> </a>
+          <small class="handle">@{{ props.user.personalData.online_handle }}</small>
           <small class="tooltip">{{ formatTime }}
             <span class="tooltiptext">{{ timeString }}</span>
           </small>
           <br>
           {{ props.activity.notes }}
+        <div class="columns activity">
+          <div class="column has-text-centered" v-if="isDistanceActivity">
+            <span class="icon">
+              <i class="fas fa-road">
+                {{ props.activity.distanceInMeters }} m
+              </i></span>
+            <span class="icon">
+              <i class="fas fa-stopwatch">
+                {{ props.activity.durationInMinutes }} min
+              </i></span>
+            <span class="icon">
+              <i class="fas fa-shoe-prints">
+                {{ User.averagePace(props.activity).toFixed(2) }} m/s
+              </i></span>
+          </div>
+          <div class="column has-text-centered" v-if="isStrengthActivity">
+            <span class="icon"><i class="fas fa-dumbbell">{{ props.activity.weightInPounds }} lbs</i></span>
+            <span class="icon"><i class="fas fa-redo">{{ props.activity.reps }} reps</i></span>
+            <span class="icon"><i class="fas fa-redo-alt">{{ props.activity.sets }} sets</i></span>
+          </div>
+          <div class="column has-text-centered">
+            <span class="icon">
+              <i class="fas fa-fire">
+                {{ props.user.calculateCaloriesBurned(props.activity).toFixed(0) }} cal
+              </i></span>
+
+            <span class="icon">
+              <i class="fas fa-heartbeat">{{ props.activity.avgHeartRate }} bpm</i></span>
+
+            <span class="icon difficulty">
+              <i class="fas fa-star">
+                {{ props.activity.wasDifficult ? "Difficult" : "Easy" }}
+              </i></span>
+          </div>
+        </div>
         </p>
       </div>
       <nav class="level is-mobile">
@@ -66,16 +102,39 @@ const props = defineProps({
   },
 });
 
+
+const isDistanceActivity = computed<boolean>(() => {
+  return User.isLooselyDistanceActivity(props.activity.type, props.activity.notes);
+})
+const isStrengthActivity = computed<boolean>(() => {
+  return User.isLooselyStrengthActivity(props.activity.type, props.activity.notes);
+})
+
+//console.log("activityitem", props.activity, "isDistanceActivity and isStrengthActivity", isDistanceActivity.value, isStrengthActivity.value)
+
+// find a user who has both isDistanceActivity and isStrengthActivity in one of their activities
+const findUsersWithBoth = () => {
+  const users = props.users.filter((user) => {
+    return user.personalData.activities.some((activity) => {
+      return User.isLooselyDistanceActivity(activity.type, activity.notes) && User.isLooselyStrengthActivity(activity.type, activity.notes);
+    });
+  });
+  return users;
+}
+
+//console.log("Users with both distance and strength", findUsersWithBoth())
+
 const previewHrefLocation = computed<string>(() => {
   return "/" + props.user.id
 })
 
 const goToProfile = (id: number) => {
-  
+
   router.push({ name: 'activity', params: { id: id.toString() } })
 }
 
 const like = () => {
+  console.log("like", props.activity, props.userState.currentUser.id)
   User.like(props.activity, props.userState.currentUser.id)
 }
 
@@ -97,13 +156,33 @@ const formatTime = computed(() => {
 // Time of (now - numDaysAgo)
 const timeString = computed(() => {
   const now = new Date();
-  console.log(props.activity)
+  //console.log(props.activity)
   const time = new Date(now.getTime() - props.activity.numDaysAgo * 24 * 60 * 60 * 1000);
   return time.toLocaleDateString();
 })
 </script>
 
 <style scoped>
+.activity {
+  margin-bottom: 0px;
+}
+
+.activity .icon {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 1.5rem;
+  width: auto;
+}
+
+.difficulty {
+  justify-content: initial;
+}
+
+.handle {
+  margin: 0.5em;
+}
+
 .likes {
   padding-left: 1.5em;
 }
