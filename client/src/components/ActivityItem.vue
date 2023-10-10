@@ -8,7 +8,7 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <a href="#"><strong>{{ props.user.getName() }}</strong> </a>
+          <a :href="previewHrefLocation" @click.prevent="goToProfile(props.user.id)"><strong>{{ props.user.getName() }}</strong> </a>
           <small>@{{ props.user.personalData.online_handle }}</small>
           <small class="tooltip">{{ formatTime }}
             <span class="tooltiptext">{{ timeString }}</span>
@@ -46,6 +46,7 @@ import { User, type Activity } from '@/components/User';
 import CommentItem from './CommentItem.vue';
 //PropType for interfaces: https://stackoverflow.com/a/75050585
 import { computed, type PropType } from 'vue';
+import router from '@/router';
 const props = defineProps({
   user: {
     type: User,
@@ -64,6 +65,15 @@ const props = defineProps({
     required: true,
   },
 });
+
+const previewHrefLocation = computed<string>(() => {
+  return "/" + props.user.id
+})
+
+const goToProfile = (id: number) => {
+  
+  router.push({ name: 'activity', params: { id: id.toString() } })
+}
 
 const like = () => {
   User.like(props.activity, props.userState.currentUser.id)

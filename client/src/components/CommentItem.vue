@@ -8,7 +8,7 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <a href = "#" @click="goToProfile(props.comment.author_id)"><strong>{{ author?.getName() }} </strong></a>
+          <a :href = "previewHrefLocation" @click.prevent="goToProfile(props.comment.author_id)"><strong>{{ author?.getName() }} </strong></a>
           <br>
             {{ props.comment.comment }}
           <br>
@@ -54,12 +54,11 @@ const like = () => {
   User.like(props.comment, props.userState.currentUser.id)
 }
 
-const hrefAuthorLocation = computed<string>(() => {
-  return "#" + props.comment.author_id
+const previewHrefLocation = computed<string>(() => {
+  return "/" + props.comment.author_id
 })
 
 const goToProfile = (id: number) => {
-  console.log("goToProfile", id)
   router.push({ name: 'activity', params: { id: id.toString() } })
 }
 

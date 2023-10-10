@@ -67,6 +67,21 @@ export class User {
 
   weightClassTypes: string[] = ["underweight", "normal", "overweight", "obese", "clinically_obese"];
 
+  // Returns the id of the user's friends(people who have commented on their activities)
+  getFriendsIds(): number[] {
+    // for activities
+    let friends: number[] = [];
+    this.personalData.activities.forEach(activity => {
+      if(activity.comments == undefined) return;
+      activity.comments.forEach(comment => {
+        if (!friends.includes(comment.author_id)) {
+          friends.push(comment.author_id);
+        }
+      });
+    });
+    return friends;
+  }
+
   static like(item: Activity | ActivityComment, userID: number): void {
     // awful but this is how interface instanceof has to work https://stackoverflow.com/a/31748606
     if ("comments" in item) { // something only activities have

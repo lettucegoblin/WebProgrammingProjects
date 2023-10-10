@@ -23,7 +23,7 @@
         <button class="button is-info is-fullwidth">Add Workout(TODO)</button>
         <!-- ActivityList can be used to show other user's Activities. We send ours here. -->
         <!-- TODO: userState lets you know if you're friends. -->
-        <ActivityList :user="userFromParam" :userState="userState" :users="props.users" />
+        <ActivityList :isFriendsActivityList="isFriendsActivityList" :user="userFromParam" :userState="userState" :users="props.users" />
       </div>
       <div class="column"></div>
     </div>
