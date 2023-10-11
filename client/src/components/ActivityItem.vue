@@ -136,7 +136,7 @@ const previewHrefLocation = computed<string>(() => {
   return "/" + props.user.id
 })
 
-const goToProfile = (id) => {
+const goToProfile = (id: number) => {
 
   router.push({ name: 'activity', params: { id: id.toString() } })
 }
