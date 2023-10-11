@@ -1,4 +1,4 @@
-![This Repos Badge](https://github.com/lettucegoblin/Continuous-Integration-Examples/actions/workflows/ci.yml/badge.svg)
+![This Repos Badge](https://github.com/lettucegoblin/WebProgrammingProjects/actions/workflows/ci.yml/badge.svg)
 # Final Project Repository
 
 This repository is designed to hold my final project. It will contain all of my assignments. 
