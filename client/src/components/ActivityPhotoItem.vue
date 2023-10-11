@@ -6,7 +6,7 @@
 import { computed } from 'vue';
 
 const activitiesPhotos = computed<string>(() => {
-  return new URL(`/src/assets/activities_photos/${props.userId}_${props.activityIndex}.png`, import.meta.url).href;
+  return new URL(`/src/assets/activities_photos/${props.userId}_${props.activityIndex}.webp`, import.meta.url).href;
 })
 const props = defineProps({
   userId: {
