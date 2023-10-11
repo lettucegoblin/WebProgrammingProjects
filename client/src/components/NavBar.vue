@@ -2,6 +2,8 @@
 import { computed, ref } from 'vue'
 
 import { User } from '@/components/User'
+import ProfilePhotoItem from './ProfilePhotoItem.vue';
+
 const navbar = ref({ burgerIsActive: false, loginDropdownIsActive: false });
 const props = defineProps({
   users: {
@@ -126,7 +128,7 @@ const isLoggedIn = computed(() => {
                           <div class="media-left">
                             <figure class="image is-48x48" :style="{ backgroundColor: randomHslColor() }">
                               <!-- if is admin set class .is-admin -->
-                              <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                              <ProfilePhotoItem :userId="user.id"></ProfilePhotoItem>
                               <i v-if="user.isAdmin" class="is-admin fa-solid fa-lock-open"></i>
                             </figure>
 
@@ -200,7 +202,7 @@ const isLoggedIn = computed(() => {
   top: 5px;
   left: 5px;
   font-size: smaller;
-  text-shadow: 0px 1px 0px #000000;
+  text-shadow: 2px 1px 4px #ffffff, -1px -1px 4px #ffffff;
   color: #f13a3a;
 }
 

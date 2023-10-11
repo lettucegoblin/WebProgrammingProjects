@@ -1,14 +1,17 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <p class="image is-48x48">
-        <img src="https://bulma.io/images/placeholders/96x96.png">
-      </p>
+      <a :href="previewHrefLocation" @click.prevent="goToProfile(props.comment.author_id)" class="image is-48x48">
+        <ProfilePhotoItem :userId="props.comment.author_id"/>
+      </a>
     </figure>
     <div class="media-content">
       <div class="content">
         <p>
-          <a :href = "previewHrefLocation" @click.prevent="goToProfile(props.comment.author_id)"><strong>{{ author?.getName() }} </strong></a>
+          <a :href="previewHrefLocation" @click.prevent="goToProfile(props.comment.author_id)">
+            <strong>{{ author?.getName() }} </strong>
+          </a>
+          <small class="handle">@{{ author?.personalData.online_handle }}</small>
           <br>
             {{ props.comment.comment }}
           <br>
@@ -32,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+import ProfilePhotoItem from './ProfilePhotoItem.vue';
 import { computed, defineProps, type PropType } from 'vue'
 import router from '@/router'
 import { type ActivityComment, User } from '@/components/User'
@@ -74,5 +78,8 @@ const author = computed(() => {
 <style scoped>
 .likes {
   padding-left: 1em;
+}
+.handle {
+  margin: 0.5em;
 }
 </style>

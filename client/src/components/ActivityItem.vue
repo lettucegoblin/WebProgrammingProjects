@@ -1,20 +1,23 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <p class="image is-64x64">
-        <img src="https://bulma.io/images/placeholders/128x128.png">
-      </p>
+      <a :href="previewHrefLocation" @click.prevent="goToProfile(props.user.id)" class="image is-64x64">
+        <ProfilePhotoItem :userId="props.user.id" />
+      </a>
     </figure>
     <div class="media-content">
       <div class="content">
         <p>
-          <a :href="previewHrefLocation" @click.prevent="goToProfile(props.user.id)"><strong>{{ props.user.getName()
-          }}</strong> </a>
+          <a :href="previewHrefLocation" @click.prevent="goToProfile(props.user.id)">
+            <strong>{{ props.user.getName() }}
+            </strong> 
+          </a>
           <small class="handle">@{{ props.user.personalData.online_handle }}</small>
           <small class="tooltip">{{ formatTime }}
             <span class="tooltiptext">{{ timeString }}</span>
           </small>
           <br>
+          <ActivityPhotoItem :userId="props.user.id" :activityIndex="indexOfActivity" />
           {{ props.activity.notes }}
         <div class="columns activity">
           <div class="column has-text-centered" v-if="isDistanceActivity">
@@ -79,10 +82,12 @@
 
 <script setup lang="ts">
 import { User, type Activity } from '@/components/User';
+import ProfilePhotoItem from './ProfilePhotoItem.vue';
 import CommentItem from './CommentItem.vue';
 //PropType for interfaces: https://stackoverflow.com/a/75050585
 import { computed, type PropType } from 'vue';
 import router from '@/router';
+import ActivityPhotoItem from '@/components/ActivityPhotoItem.vue';
 const props = defineProps({
   user: {
     type: User,
@@ -102,6 +107,9 @@ const props = defineProps({
   },
 });
 
+const indexOfActivity = computed<number>(() => {
+  return props.user.personalData.activities.indexOf(props.activity);
+})
 
 const isDistanceActivity = computed<boolean>(() => {
   return User.isLooselyDistanceActivity(props.activity.type, props.activity.notes);
