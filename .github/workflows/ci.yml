@@ -1,0 +1,22 @@
+name: CI_Typecheck
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Navigate to client folder
+      run: cd client
+
+    - name: Install Dev Deps
+      run: npm install
+    
+    - name: Run Typecheck
+      run: npm run type-check
