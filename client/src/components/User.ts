@@ -71,6 +71,7 @@ export class User {
   getFriendsIds(): number[] {
     // for activities
     let friends: number[] = [];
+    if (this.personalData.activities == undefined) return friends;
     this.personalData.activities.forEach(activity => {
       if (activity.comments == undefined) return;
       activity.comments.forEach(comment => {

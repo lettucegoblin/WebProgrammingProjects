@@ -99,6 +99,8 @@ const props = defineProps({
     required: true,
   }
 });
+
+console.log("AdminUsersView", props.users, "pageCount", pageCount.value, "usersPaginated", usersPaginated.value)
 </script>
 
 <style scoped>

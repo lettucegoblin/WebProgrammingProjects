@@ -79,7 +79,7 @@ const isLoggedIn = computed(() => {
       <div :class="{ 'is-active': navbar.burgerIsActive }" id="navbarMidterm" class="navbar-menu">
         <div class="navbar-start">
 
-          <RouterLink class="navbar-item" to="/about">People Search</RouterLink>
+          <RouterLink class="navbar-item" to="/peoplesearch">People Search</RouterLink>
           <!-- Admin Nav -->
           <div v-if="props.userState.currentUser.isAdmin" class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">

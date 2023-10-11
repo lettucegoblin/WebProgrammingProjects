@@ -2,6 +2,9 @@
 
 This repository is designed to hold my final project. It will contain all of my assignments. 
 
+## Midterm Project
+- Render page: [Midterm Project](https://aigen-exercise-static-vue.onrender.com/)
+
 ## Repository Navigation
 
 * [Assignments Folder](Assignments)
