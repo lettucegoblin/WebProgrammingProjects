@@ -68,11 +68,24 @@ export class User {
   weightClassTypes: string[] = ["underweight", "normal", "overweight", "obese", "clinically_obese"];
 
   // Returns the id of the user's friends(people who have commented on their activities)
-  getFriendsIds(): number[] {
+  getFriendsIds(users: User[]): number[] {
     // for activities
+    let friends: number[] = User.getAllIdsWhoCommentedOnActivities(this);
+    for (let user of users) {
+      User.getAllIdsWhoCommentedOnActivities(user).forEach((id:Number) => {
+        //check if I commented on their activity
+        if (id == this.id && !friends.includes(user.id)) { // if I commented on their activity and they're not already in friends
+          friends.push(user.id);
+        }
+      });
+    }
+    return friends;
+  }
+
+  private static getAllIdsWhoCommentedOnActivities(user: User): number[] {
     let friends: number[] = [];
-    if (this.personalData.activities == undefined) return friends;
-    this.personalData.activities.forEach(activity => {
+    if (user.personalData.activities == undefined) return friends;
+    user.personalData.activities.forEach(activity => {
       if (activity.comments == undefined) return;
       activity.comments.forEach(comment => {
         if (!friends.includes(comment.author_id)) {

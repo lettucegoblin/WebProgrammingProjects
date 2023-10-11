@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import SimpleStatistic from '../components/SimpleStatistic.vue'
 import { User } from '@/components/User';
+import type { PropType } from 'vue';
+import ProfileView from './ProfileView.vue';
+
 const props = defineProps({
   users: {
     type: Array<User>,
     required: true,
   },
   userState: {
-    type: Object,
+    type: Object as PropType<{ currentUser: User }>,
     required: true,
   }
 });
-//console.log("homeview", props.userState)
+console.log("homeview", props);
 </script>
 
 <template>
-  <main>
-    <SimpleStatistic :user="props.userState.currentUser" />
-  </main>
+
+    <ProfileView :users="props.users" :user="userState.currentUser" :userState="props.userState"/>
+  
 </template>

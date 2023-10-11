@@ -1,17 +1,19 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <a :href="previewHrefLocation" @click.prevent="goToProfile(props.user.id)" class="image is-64x64">
+      <RouterLink :to="{ name: 'profile', params: { id: props.user.id } }" class="image is-64x64">
         <ProfilePhotoItem :userId="props.user.id" />
-      </a>
+      </RouterLink>
     </figure>
     <div class="media-content">
       <div class="content">
         <p>
-          <a :href="previewHrefLocation" @click.prevent="goToProfile(props.user.id)">
+          <RouterLink :to="{ name: 'profile', params: { id: props.user.id } }">
+          <!--<a :href="previewHrefLocation" @click.prevent="goToProfile(props.user.id)">-->
             <strong>{{ props.user.getName() }}
             </strong> 
-          </a>
+          
+        </RouterLink>
           <small class="handle">@{{ props.user.personalData.online_handle }}</small>
           <small class="tooltip">{{ formatTime }}
             <span class="tooltiptext">{{ timeString }}</span>
@@ -132,15 +134,6 @@ const findUsersWithBoth = () => {
 
 //console.log("Users with both distance and strength", findUsersWithBoth())
 
-const previewHrefLocation = computed<string>(() => {
-  return "/" + props.user.id
-})
-
-const goToProfile = (id: number) => {
-
-  router.push({ name: 'activity', params: { id: id.toString() } })
-}
-
 const like = () => {
   console.log("like", props.activity, props.userState.currentUser.id)
   User.like(props.activity, props.userState.currentUser.id)
@@ -181,6 +174,9 @@ const timeString = computed(() => {
   justify-content: center;
   height: 1.5rem;
   width: auto;
+}
+.activity .icon i::before {
+  margin-right: 0.5rem;
 }
 
 .difficulty {

@@ -1,16 +1,16 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <a :href="previewHrefLocation" @click.prevent="goToProfile(props.comment.author_id)" class="image is-48x48">
+      <RouterLink :to="{ name: 'profile', params: { id: props.comment.author_id } }" class="image is-48x48">
         <ProfilePhotoItem :userId="props.comment.author_id"/>
-      </a>
+      </RouterLink>
     </figure>
     <div class="media-content">
       <div class="content">
         <p>
-          <a :href="previewHrefLocation" @click.prevent="goToProfile(props.comment.author_id)">
+          <RouterLink :to="{ name: 'profile', params: { id: props.comment.author_id } }">
             <strong>{{ author?.getName() }} </strong>
-          </a>
+          </RouterLink>
           <small class="handle">@{{ author?.personalData.online_handle }}</small>
           <br>
             {{ props.comment.comment }}
@@ -56,14 +56,6 @@ const props = defineProps({
 
 const like = () => {
   User.like(props.comment, props.userState.currentUser.id)
-}
-
-const previewHrefLocation = computed<string>(() => {
-  return "/" + props.comment.author_id
-})
-
-const goToProfile = (id: number) => {
-  router.push({ name: 'activity', params: { id: id.toString() } })
 }
 
 const author = computed(() => {

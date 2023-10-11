@@ -47,6 +47,7 @@ const props = defineProps({
     required: true,
   },
 });
+console.log("activityView", props);
 
 const isFriendsActivityList = computed(() => {
   return route.name == "friendsactivity"

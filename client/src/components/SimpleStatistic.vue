@@ -120,14 +120,8 @@ function collateActivities(tempArrOfActivities: Array<Activity>) {
 </script>
 
 <template>
-  <div class="columns">
-    <div class="column"></div>
-    <div class="column is-half">
-      <SimpleStatisticItem v-for="collatedAverage in congregateActivities" :user="props.user"
+  <SimpleStatisticItem v-for="collatedAverage in congregateActivities" :user="props.user"
         :collatedAverage="collatedAverage" />
-    </div>
-    <div class="column"></div>
-  </div>
 </template>
 
 <style scoped></style>

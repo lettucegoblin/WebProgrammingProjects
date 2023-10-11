@@ -31,7 +31,7 @@ const props = defineProps({
 // activities of all of user's friends(people who have commented on their posts)
 // sorted by most recent
 const sortedFriendsActivities = computed(() => {
-  const friendsIds = props.user.getFriendsIds();
+  const friendsIds = props.user.getFriendsIds(props.users);
   //console.log('friendsIds', friendsIds);
   const friendActivities = new Array<{activity:Activity, user:User}>();
   // for each friend, get their activities and add them to friendActivities

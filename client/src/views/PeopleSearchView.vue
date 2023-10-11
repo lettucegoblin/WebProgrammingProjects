@@ -26,22 +26,7 @@
     </div>
     <!-- Bulma columns of user media in rows and columns -->
     <div class="user-list columns is-multiline">
-      <div class="card" v-for="user in usersPaginated">
-
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <ProfilePhotoItem :userId="user.id"></ProfilePhotoItem>
-              </figure>
-            </div>
-            <div class="media-content">
-              <p class="title is-7">{{ user.getName() }}</p>
-              <p class="subtitle is-7">@{{ user.personalData.online_handle }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <SmallUserCard v-for="user in usersPaginated" :user="user"/>
     </div>
   </div>
 </template>
@@ -51,6 +36,8 @@ import type { User } from '@/components/User';
 import pagination from '@/components/pagination.vue';
 import ProfilePhotoItem from '@/components/ProfilePhotoItem.vue';
 import { ref, type PropType, computed } from 'vue';
+import SmallUserCard from '@/components/SmallUserCard.vue';
+
 const page = ref(1);
 const searchInput = ref("");
 const changeCountPerPage = (n: number) => {
@@ -111,33 +98,5 @@ const props = defineProps({
   margin-bottom: 0px  ;
   width: 80vw;
 }
-.user-list {
-  justify-content: center;
-}
 
-.user-list .media-left {
-  margin-right: 0.5rem;
-}
-
-.card .card-content {
-  padding: 0.5rem;
-}
-
-.card .media {
-  margin-bottom: 0.5rem;
-}
-
-.card {
-  margin: 10px;
-  width: 10vw;
-  display: flex;
-  align-items: center;
-}
-
-.card:hover {
-  background-color: #f5f5f5;
-  cursor: pointer;
-  transform: scale(1.02);
-  transition: all 0.1s ease-in-out;
-}
 </style>
