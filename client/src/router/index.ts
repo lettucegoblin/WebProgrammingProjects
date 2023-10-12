@@ -39,7 +39,6 @@ const router = createRouter({
     {
       path: '/profile/:id',
       name: 'profile',
-      props: true,
       component: () => import('../views/ProfileView.vue')
     },
     {
@@ -48,7 +47,7 @@ const router = createRouter({
       component: () => import('../views/HomeView.vue')
     },
     {
-      path: '/editprofile',
+      path: '/editprofile/:id',
       name: 'editprofile',
       component: () => import('../views/ProfileView.vue')
     },

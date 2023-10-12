@@ -3,12 +3,12 @@
     <div class="columns">
       <div class="column">
         <div v-if="user == userState.currentUser">
-          <button v-if="editMode" class="edit-button button is-fullwidth is-outlined is-success"
+          <button v-if="isEditMode" class="edit-button button is-fullwidth is-outlined is-success"
             @click="editMode = !editMode">Save</button>
           <button v-else class="edit-button button is-fullwidth is-outlined is-danger"
             @click="editMode = !editMode">Edit</button>
         </div>
-        <ProfileItem :user="user" :userState="userState" :users="users" :editMode="editMode" />
+        <ProfileItem :user="user" :userState="userState" :users="users" :editMode="isEditMode" />
       </div>
       <div class="column is-half">
         <RouterLink :to="{ name: 'activity', params: { id: user.id } }">
@@ -30,6 +30,7 @@ import ProfileItem from '@/components/ProfileItem.vue';
 import { computed, ref, type PropType } from 'vue';
 import { useRoute } from 'vue-router';
 import FriendsList from '@/components/FriendsList.vue';
+import { type ComputedRef } from 'vue';
 
 const route = useRoute()
 const props = defineProps({
@@ -42,7 +43,14 @@ const props = defineProps({
     required: true,
   }
 });
-const editMode = ref(route.name == "editprofile");
+const editMode = ref(false);
+
+const isEditMode: ComputedRef<boolean> = computed(() => {
+  if(route.name == "editprofile" && props.userState.currentUser.isAdmin) return true;
+
+  return editMode.value;
+})
+console.log("ProfileView", props, "isEditMode", isEditMode.value, "route.parms.id", route.params.id, "route.name", route.name)
 
 const user = computed(() => {
   if (route.params.id && typeof route.params.id == 'string') {
