@@ -7,7 +7,7 @@ import { computed } from 'vue';
 
 const onError = (event: Event) => {
   const target = event.target as HTMLImageElement;
-  target.src = '/src/assets/profile_photos/p_Default.webp';
+  target.src = new URL(`/src/assets/profile_photos/p_Default.webp`, import.meta.url).href;
 }
 
 const profilePhoto = computed<string>(() => {

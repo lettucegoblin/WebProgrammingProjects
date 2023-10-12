@@ -1,9 +1,13 @@
 <template>
-  <img :src="activitiesPhotos" onerror="this.onerror=null; this.src='/src/assets/activities_photos/Default.webp'">
+  <img :src="activitiesPhotos" :onerror="onError">
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+const onError = (event: Event) => {
+  const target = event.target as HTMLImageElement;
+  target.src = new URL(`/src/assets/activities_photos/Default.webp`, import.meta.url).href;
+}
 
 const activitiesPhotos = computed<string>(() => {
   return new URL(`/src/assets/activities_photos/${props.userId}_${props.activityIndex}.webp`, import.meta.url).href;
