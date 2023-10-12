@@ -1,5 +1,5 @@
 <template>
-  <img :src="activitiesPhotos" onerror="this.onerror=null; this.src='/src/assets/activities_photos/Default.jpg'">
+  <img :src="activitiesPhotos" onerror="this.onerror=null; this.src='/src/assets/activities_photos/Default.webp'">
 </template>
 
 <script setup lang="ts">

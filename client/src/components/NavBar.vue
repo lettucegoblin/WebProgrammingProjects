@@ -54,8 +54,7 @@ const handleTest = () => {
   <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <RouterLink class="navbar-item" to="/"><img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="24"
-            height="28"></RouterLink>
+        <RouterLink class="navbar-item" to="/"><img alt="Vue logo" class="logo" src="@/assets/logo.webp" width="64"></RouterLink>
         <RouterLink v-if="isLoggedIn" class="navbar-item" to="/activity">
           <span class="icon">
             <i class="fas fa-running"></i>
@@ -233,5 +232,9 @@ const handleTest = () => {
 .navbar-item .buttons,
 .buttons .button {
   margin-bottom: 0rem;
+}
+
+.navbar-item img {
+    max-height: unset
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <img :src="profilePhoto" onerror="this.onerror=null; this.src='/src/assets/profile_photos/Default.jpg'">
+  <img :src="profilePhoto" onerror="this.onerror=null; this.src='/src/assets/profile_photos/Default.webp'">
 </template>
 
 <script setup lang="ts">
@@ -8,11 +8,11 @@ const defaultPath = '/src/assets/profile_photos/'
 
 const onError = (event: Event) => {
   const target = event.target as HTMLImageElement;
-  target.src = 'Default.jpg';
+  target.src = 'Default.webp';
 }
 
 const profilePhoto = computed<string>(() => {
-  return new URL(`${defaultPath}${props.userId+1}.jpg`, import.meta.url).href;
+  return new URL(`${defaultPath}${props.userId+1}.webp`, import.meta.url).href;
 })
 const props = defineProps({
   userId: {
