@@ -49,7 +49,8 @@ const sortedFriendsActivities = computed(() => {
 
 const sortedActivities = computed(() => {
   if(props.user.personalData.activities == undefined) return new Array<Activity>();
-  return props.user.personalData.activities.sort((a: any, b: any) => {
+  const activitiesCopy = [...props.user.personalData.activities];
+  return activitiesCopy.sort((a: any, b: any) => {
     return parseInt(a.numDaysAgo) - parseInt(b.numDaysAgo);
   });
 })

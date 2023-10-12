@@ -63,9 +63,27 @@ export class User {
   personalData: PersonalData;
   isAdmin: boolean;
   id: number;
-  activitiesAndTheirMET: { [key: string]: number } = { "run": 7.0, "bike": 7.5, "walk": 5.3, "cardio": 3.8, "strength": 6.0 };
+  static activitiesAndTheirMET: { [key: string]: number } = { "run": 7.0, "bike": 7.5, "walk": 5.3, "cardio": 3.8, "strength": 6.0 };
 
   weightClassTypes: string[] = ["underweight", "normal", "overweight", "obese", "clinically_obese"];
+  static defaultActivity: Activity = {
+    type: '',
+    wasDifficult: false,
+    avgHeartRate: 0,
+    distanceInMeters: 0,
+    reps: 0,
+    sets: 0,
+    weightInPounds: 0,
+    durationInMinutes: 0,
+    location: '',
+    notes: '',
+    numOfComments: 0,
+    numOfLikes: 0,
+    numDaysAgo: 0,
+    comments: [] as ActivityComment[],
+    likedBy: [],
+  };
+  
   static defaultPersonalData: PersonalData = {
     firstName: '',
     lastName: '',
@@ -81,9 +99,6 @@ export class User {
     activities: [],
   };
 
-  static optionsForPersonalData: { [key: string]: string[] } = {
-    "genderIdentity": ["Male", "Female", "Non-binary", "Prefer not to say"],
-  }
   // Returns the id of the user's friends(people who have commented on their activities)
   getFriendsIds(users: User[]): number[] {
     // for activities
@@ -166,7 +181,7 @@ export class User {
     let durationInMinutes: number = activity.durationInMinutes;
     // calories burned = METs x 3.5 x BW (kg) / 200 = Kcal/min.
     let weightInKg = this.personalData.weight / 2.2;
-    let MET = this.activitiesAndTheirMET[activity.type];
+    let MET = User.activitiesAndTheirMET[activity.type];
     caloriesBurned = MET * 3.5 * weightInKg / 200 * durationInMinutes;
     return caloriesBurned;
   }

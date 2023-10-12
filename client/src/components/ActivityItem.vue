@@ -76,7 +76,7 @@
         :userState="userState" />
     </div>
     <div class="media-right">
-      <button class="delete"></button>
+      <button v-if="props.user == props.userState.currentUser" class="delete"></button>
     </div>
 
   </article>
@@ -90,6 +90,7 @@ import CommentItem from './CommentItem.vue';
 import { computed, type PropType } from 'vue';
 import router from '@/router';
 import ActivityPhotoItem from '@/components/ActivityPhotoItem.vue';
+
 const props = defineProps({
   user: {
     type: User,

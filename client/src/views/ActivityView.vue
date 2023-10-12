@@ -20,7 +20,9 @@
             <i class="fas fa-running"></i>
           </span>
         </div>
-        <button v-if="!isFriendsActivityList && isUserParam" class="add-workout button is-info is-fullwidth">Add Workout(TODO)</button>
+        <button v-if="!isFriendsActivityList && isUserParam" @click="AddWorkoutModalVisible = !AddWorkoutModalVisible" class="add-workout button is-info is-fullwidth">Add Workout</button>
+        <AddWorkoutModal v-if="!isFriendsActivityList && isUserParam" :user="props.userState.currentUser" v-model="AddWorkoutModalVisible" />
+        
         <!-- ActivityList can be used to show other user's Activities. We send ours here. -->
         <!-- TODO: userState lets you know if you're friends. -->
         <ActivityList :isFriendsActivityList="isFriendsActivityList" :user="userFromParam" :userState="userState" :users="props.users" />
@@ -33,9 +35,12 @@
 <script setup lang="ts">
 import ActivityList from '@/components/ActivityList.vue';
 import { User } from '@/components/User';
-import { computed, type PropType } from 'vue';
+import { computed, ref, type PropType } from 'vue';
 import { useRoute } from 'vue-router';
+import AddWorkoutModal from '@/components/AddWorkoutModal.vue';
 const route = useRoute()
+const AddWorkoutModalVisible = ref(false);
+
 //console.log(route.params.id, route.name)
 const props = defineProps({
   users: {

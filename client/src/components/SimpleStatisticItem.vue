@@ -31,7 +31,7 @@ const distanceOutput = computed(() => {
     const milesString = distanceInMiles === 1 ? 'mile' : 'miles';
     return `${distanceInMiles.toFixed(2)} ${milesString}`;
   } else {
-    return `${distanceInFeet} ft`;
+    return `${distanceInFeet.value} ft`;
   }
 })
 
