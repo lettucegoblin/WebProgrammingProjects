@@ -101,7 +101,7 @@ const signUp = (event: Event) => {
   emit('logIn', newUser);
 
   // 4. Redirect to the home page
-  //router.push('/');
+  router.push('/');
 }
 
 

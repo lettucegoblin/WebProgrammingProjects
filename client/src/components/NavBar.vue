@@ -104,7 +104,7 @@ const handleTest = () => {
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <RouterLink to="signup" v-if="userState.currentUser.id == -1" class="button is-primary">
+              <RouterLink to="/signup" v-if="userState.currentUser.id == -1" class="button is-primary">
                 <strong>Sign up</strong>
               </RouterLink>
               <RouterLink :to="{ name: 'profile', params: { id: userState.currentUser.id } }" v-else class="button is-primary">

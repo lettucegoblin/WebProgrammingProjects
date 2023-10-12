@@ -2,7 +2,13 @@
   <main>
     <div class="columns">
       <div class="column">
-        <ProfileItem :user="user" :userState="userState" :users="users" />
+        <div v-if="user == userState.currentUser">
+          <button v-if="editMode" class="edit-button button is-fullwidth is-outlined is-success"
+            @click="editMode = !editMode">Save</button>
+          <button v-else class="edit-button button is-fullwidth is-outlined is-danger"
+            @click="editMode = !editMode">Edit</button>
+        </div>
+        <ProfileItem :user="user" :userState="userState" :users="users" :editMode="editMode" />
       </div>
       <div class="column is-half">
         <RouterLink :to="{ name: 'activity', params: { id: user.id } }">
@@ -21,9 +27,10 @@
 import SimpleStatistic from '../components/SimpleStatistic.vue'
 import { User } from '@/components/User';
 import ProfileItem from '@/components/ProfileItem.vue';
-import { computed, type PropType } from 'vue';
+import { computed, ref, type PropType } from 'vue';
 import { useRoute } from 'vue-router';
 import FriendsList from '@/components/FriendsList.vue';
+
 const route = useRoute()
 const props = defineProps({
   users: {
@@ -35,6 +42,7 @@ const props = defineProps({
     required: true,
   }
 });
+const editMode = ref(route.name == "editprofile");
 
 const user = computed(() => {
   if (route.params.id && typeof route.params.id == 'string') {
@@ -49,4 +57,8 @@ const user = computed(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.edit-button {
+  margin-bottom: 0.2rem;
+}
+</style>

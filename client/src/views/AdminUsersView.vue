@@ -52,7 +52,12 @@
           <td>{{ user.personalData.emails }}</td>
           <td>{{ user.personalData.online_handle }}</td>
           <td>{{ user.isAdmin }}</td>
-          <td><button class="button">edit</button><button class="button is-warning">x</button></td>
+          <td>
+            <RouterLink :to="{ name: 'editprofile', params: { id: user.id } }">
+              <button class="button">Edit Profile</button>
+            </RouterLink>
+            <button class="button">Edit Account</button>
+            <button class="button is-warning">x</button></td>
         </tr>
 
       </tbody>

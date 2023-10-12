@@ -80,6 +80,10 @@ export class User {
     emails: [],
     activities: [],
   };
+
+  static optionsForPersonalData: { [key: string]: string[] } = {
+    "genderIdentity": ["Male", "Female", "Non-binary", "Prefer not to say"],
+  }
   // Returns the id of the user's friends(people who have commented on their activities)
   getFriendsIds(users: User[]): number[] {
     // for activities
@@ -101,7 +105,7 @@ export class User {
     user.personalData.activities.forEach(activity => {
       if (activity.comments == undefined) return;
       activity.comments.forEach(comment => {
-        if (!friends.includes(comment.author_id)) {
+        if (!friends.includes(comment.author_id) && comment.author_id != user.id) {
           friends.push(comment.author_id);
         }
       });
