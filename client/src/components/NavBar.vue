@@ -30,6 +30,7 @@ const closeNavbar = () => {
 
 const logIn = (user: User) => {
   closeNavbar();
+  console.log("navbar logIn", user)
   emit('logIn', user);
 }
 
@@ -41,6 +42,11 @@ const logOut = () => {
 const isLoggedIn = computed(() => {
   return props.userState.currentUser.id != -1;
 });
+const handleTest = () => {
+      console.log('Received test event:');
+
+    };
+
 
 </script>
 
@@ -98,13 +104,12 @@ const isLoggedIn = computed(() => {
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a v-if="userState.currentUser.id == -1" class="button is-primary">
+              <RouterLink to="signup" v-if="userState.currentUser.id == -1" class="button is-primary">
                 <strong>Sign up</strong>
-              </a>
-              <a v-else class="button is-primary">
-                <strong>{{ userState.currentUser.personalData.firstName + " " +
-                  userState.currentUser.personalData.lastName }}</strong>
-              </a>
+              </RouterLink>
+              <RouterLink :to="{ name: 'profile', params: { id: userState.currentUser.id } }" v-else class="button is-primary">
+                <strong>{{ userState.currentUser.getName() }}</strong>
+              </RouterLink>
 
               <div id="login-dropdown" :class="{ 'is-active': navbar.loginDropdownIsActive }" class="dropdown">
                 <div class="dropdown-trigger">

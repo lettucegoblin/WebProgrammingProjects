@@ -66,13 +66,26 @@ export class User {
   activitiesAndTheirMET: { [key: string]: number } = { "run": 7.0, "bike": 7.5, "walk": 5.3, "cardio": 3.8, "strength": 6.0 };
 
   weightClassTypes: string[] = ["underweight", "normal", "overweight", "obese", "clinically_obese"];
-
+  static defaultPersonalData: PersonalData = {
+    firstName: '',
+    lastName: '',
+    genderIdentity: '',
+    age: 0,
+    height: 0,
+    weight_class: '',
+    weight: 0,
+    online_handle: '',
+    aboutMe: '',
+    oneAdjectiveToDescribeMe: '',
+    emails: [],
+    activities: [],
+  };
   // Returns the id of the user's friends(people who have commented on their activities)
   getFriendsIds(users: User[]): number[] {
     // for activities
     let friends: number[] = User.getAllIdsWhoCommentedOnActivities(this);
     for (let user of users) {
-      User.getAllIdsWhoCommentedOnActivities(user).forEach((id:Number) => {
+      User.getAllIdsWhoCommentedOnActivities(user).forEach((id: Number) => {
         //check if I commented on their activity
         if (id == this.id && !friends.includes(user.id)) { // if I commented on their activity and they're not already in friends
           friends.push(user.id);
@@ -185,9 +198,22 @@ export class User {
     return this.personalData.firstName + " " + this.personalData.lastName;
   }
 
-  constructor(userObject: any) {
-    this.id = parseInt(userObject.id);
-    this.personalData = userObject.personalData;
-    this.isAdmin = userObject.isAdmin == "true" ? true : false;
+  public constructor(user?:any, id?: number, isAdmin?: boolean, personalData?: PersonalData) {
+    if( user != undefined) { // copy constructor
+      this.personalData = { ...user.personalData } as PersonalData;
+      this.isAdmin = user.isAdmin == "true" ? true : false; // convert string to boolean
+      this.id = parseInt(user.id);
+      return;
+    }
+    if( id == undefined || isAdmin == undefined) throw new Error("id and isAdmin must be defined");
+
+    this.id = id;
+    if (personalData == undefined)
+      // initialize to default values
+      this.personalData = { ...User.defaultPersonalData } as PersonalData;
+    else
+      this.personalData = personalData;
+    this.isAdmin = isAdmin;
   }
+  
 }
