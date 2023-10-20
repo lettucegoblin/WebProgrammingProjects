@@ -61,12 +61,12 @@ const handleTest = () => {
           </span>
           <span>My Activity</span>
         </RouterLink>
-        <RouterLink class="navbar-item" to="/about">
+        <!--<RouterLink class="navbar-item" to="/about">
           <span class="icon">
             <i class="fas fa-chart-line"></i>
           </span>
           <span>Global Statistics</span>
-        </RouterLink>
+        </RouterLink>-->
         <RouterLink v-if="isLoggedIn" class="navbar-item" to="/activity/FriendsActivity">
           <span class="icon">
             <i class="fas fa-user-friends"></i>
